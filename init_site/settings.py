@@ -14,6 +14,7 @@ from pathlib import Path
 import dj_database_url
 import os
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,7 +29,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage" 
 SECRET_KEY = "django-insecure-c+xgd_ire-)+-uf1#=6y1678n5j6qs2h%dm1b*5zu*!zuncv3-"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("STATUS") != "prod"  # HEROKU Environment Var -> STATUS = prod
 
 ALLOWED_HOSTS = [".herokuapp.com", "localhost"]  # herokuapp.com for Heroku
 
@@ -155,8 +156,8 @@ SITE_ID = 1
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
         "APP": {
-            "client_id": "",
-            "secret": "",
+            "client_id": os.environ.get("GOOGLE_AUTH_CLIENT_ID"),
+            "secret": os.environ.get("GOOGLE_AUTH_CLIENT_SECRET"),
             "key": "",
         }
     }
@@ -174,8 +175,9 @@ INSTALLED_APPS += [
 # Do NOT import django-heroku above!
 # ty Sherriff :)
 try:
-    if 'HEROKU' in os.environ:
+    if "HEROKU" in os.environ:
         import django_heroku
+
         django_heroku.settings(locals())
 except ImportError:
     found = False

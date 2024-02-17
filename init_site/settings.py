@@ -125,7 +125,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # vvv Authentication vvv
-INSTALLED_APPS += ["auth_app"]
 INSTALLED_APPS += [
     "allauth",
     "allauth.account",
@@ -141,6 +140,8 @@ AUTHENTICATION_BACKENDS = [
 MIDDLEWARE += [
     "allauth.account.middleware.AccountMiddleware",
 ]
+LOGIN_REDIRECT_URL = "/"
+SITE_ID = 1
 # Set up under Ryland's Email
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
@@ -151,6 +152,10 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
-LOGIN_REDIRECT_URL = "/"
-SITE_ID = 1
 # ^^^ Authentication ^^^
+
+# vvv Main vvv
+INSTALLED_APPS += [
+    "main",
+]
+# ^^^ Main ^^^

@@ -17,6 +17,7 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # for Heroku
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"  # for Heroku (along with middleware)
 
 
 # Quick-start development settings - unsuitable for production
@@ -28,7 +29,7 @@ SECRET_KEY = "django-insecure-c+xgd_ire-)+-uf1#=6y1678n5j6qs2h%dm1b*5zu*!zuncv3-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [".herokuapp.com", "localhost"]
+ALLOWED_HOSTS = [".herokuapp.com", "localhost"]  # herokuapp.com for Heroku
 
 
 # Application definition
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # for Heroku
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",

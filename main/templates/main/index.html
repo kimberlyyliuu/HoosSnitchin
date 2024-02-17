@@ -4,7 +4,10 @@
     <title>Homepage</title>
   </head>
   <body>
-    <h1>Welcome to My Homepage</h1>
-    <p>This is the main page of my website.</p>
+    {% if user.is_authenticated %}
+    <h1>Hello {{ user.username }}!</h1>
+    {% else %}
+    <h1>You should log in!</h1>
+    {% endif %}
   </body>
 </html>

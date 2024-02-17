@@ -168,3 +168,14 @@ INSTALLED_APPS += [
     "main",
 ]
 # ^^^ Main ^^^
+
+# Activate Django-Heroku.
+# Use this code to avoid the psycopg2 / django-heroku error!
+# Do NOT import django-heroku above!
+# ty Sherriff :)
+try:
+    if 'HEROKU' in os.environ:
+        import django_heroku
+        django_heroku.settings(locals())
+except ImportError:
+    found = False

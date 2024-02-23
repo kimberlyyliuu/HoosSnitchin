@@ -14,7 +14,6 @@ from pathlib import Path
 import dj_database_url
 import os
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -43,6 +42,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "users",
+    "message_boards"
 ]
 
 
@@ -170,6 +171,10 @@ INSTALLED_APPS += [
     "main",
 ]
 # ^^^ Main ^^^
+
+# vvv Setting New Users
+AUTH_USER_MODEL = "users.CustomUser"
+# ^^^ Setting New Users
 
 # Activate Django-Heroku.
 # Use this code to avoid the psycopg2 / django-heroku error!

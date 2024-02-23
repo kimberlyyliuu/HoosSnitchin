@@ -1,4 +1,3 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -9,7 +8,7 @@ class CustomUser(AbstractUser):
         "message_boards.MessageBoard", on_delete=models.CASCADE, null=True, blank=True
     )
     created_comments = models.OneToOneField(
-        "comments.Comment", on_delete=models.CASCADE, null=True, blank=True
+        "message_boards.Comment", on_delete=models.CASCADE, null=True, blank=True
     )
 
     def __str__(self):

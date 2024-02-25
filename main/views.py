@@ -1,6 +1,8 @@
 from django.views import generic
 from users.models import CustomUser
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import logout
+from django.http import JsonResponse
 
 
 # display the user's name
@@ -14,3 +16,10 @@ class IndexView(generic.TemplateView):
             return context
         else:
             return super().get_context_data(**kwargs)
+
+def LogoutView(request):
+    if request.method == 'POST':
+        logout(request)
+        return JsonResponse({'message': 'Logged out successfully'}, status=200)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=400)

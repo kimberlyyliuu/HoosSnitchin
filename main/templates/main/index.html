@@ -6,8 +6,17 @@
   <body>
     {% if user.is_authenticated %}
     <h1>Hello {{ user.username }}!</h1>
+    {% if user.is_superuser %}
+    <p>You are an admin!</p>
+    {% else %}
+    <p>You are not an admin!</p>
+    
+    {% endif %}
+    <a href="/accounts/logout/" id="logout">Logout</a>
+    <a href="/accounts/login/">Return to Login Page</a>
     {% else %}
     <h1>You should log in!</h1>
+    <a href="/accounts/login/">Login</a>
     {% endif %}
   </body>
 </html>

@@ -175,6 +175,9 @@ ACCOUNT_FORMS = {
 }
 # ^^^ Custom Signup Form ^^^
 
+# vvv Email (Fake Email Backend (We Have No Email Server)) vvv
+EMAIL_BACKEND = "django.core.mail.backends.dummy.EmailBackend"
+# ^^^ Email ^^^
 
 # Activate Django-Heroku.
 # Use this code to avoid the psycopg2 / django-heroku error!

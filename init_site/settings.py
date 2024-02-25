@@ -42,8 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "users",
-    "message_boards"
+    "main",
 ]
 
 
@@ -166,14 +165,8 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 # ^^^ Authentication ^^^
 
-# vvv Main vvv
-INSTALLED_APPS += [
-    "main",
-]
-# ^^^ Main ^^^
-
 # vvv Setting New Users
-AUTH_USER_MODEL = "users.CustomUser"
+AUTH_USER_MODEL = "main.CustomUser"  # necessarry to change the default user model
 # ^^^ Setting New Users
 
 # Activate Django-Heroku.

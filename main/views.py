@@ -1,6 +1,5 @@
 from django.views import generic
-from users.models import CustomUser
-from django.contrib.auth.mixins import LoginRequiredMixin
+from main.models import CustomUser
 from django.contrib.auth import logout
 from django.http import JsonResponse
 
@@ -17,9 +16,10 @@ class IndexView(generic.TemplateView):
         else:
             return super().get_context_data(**kwargs)
 
+
 def LogoutView(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         logout(request)
-        return JsonResponse({'message': 'Logged out successfully'}, status=200)
+        return JsonResponse({"message": "Logged out successfully"}, status=200)
     else:
-        return JsonResponse({'error': 'Invalid request method'}, status=400)
+        return JsonResponse({"error": "Invalid request method"}, status=400)

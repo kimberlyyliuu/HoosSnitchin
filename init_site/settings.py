@@ -165,9 +165,16 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 # ^^^ Authentication ^^^
 
-# vvv Setting New Users
+# vvv Setting New Users vvv
 AUTH_USER_MODEL = "main.CustomUser"  # necessarry to change the default user model
-# ^^^ Setting New Users
+# ^^^ Setting New Users ^^^
+
+# vvv Custom Signup Form (Add First and Last Name to Non-Social Signups) vvv
+ACCOUNT_FORMS = {
+    "signup": "main.forms.CustomSignupForm",
+}
+# ^^^ Custom Signup Form ^^^
+
 
 # Activate Django-Heroku.
 # Use this code to avoid the psycopg2 / django-heroku error!

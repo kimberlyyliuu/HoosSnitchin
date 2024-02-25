@@ -5,7 +5,9 @@
   </head>
   <body>
     {% if user.is_authenticated %}
-    <h1>Hello {{ user.username }}!</h1>
+    <h1>Username: {{ user.username }}</h1>
+    <h2>First Name: {{ user.first_name }}</h2>
+    <h3>Last Name: {{ user.last_name }}</h3>
     {% if user.is_site_admin %}
     <p>You are an admin!</p>
     {% else %}

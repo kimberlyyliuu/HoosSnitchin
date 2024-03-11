@@ -11,7 +11,7 @@ class School(models.Model):
 
 class CustomUser(AbstractUser):
     is_site_admin = models.BooleanField(default=False)
-    school_membership = models.ForeignKey(School, on_delete=models.SET_NULL, null=True, blank=True)
+    school_membership = models.ForeignKey(School, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.username

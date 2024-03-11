@@ -21,8 +21,8 @@ class IndexView(generic.TemplateView):
 def select_school(request):
     if request.method == 'POST':
         school_id = request.POST['school']
-        #print(school_id)
-        request.user.school_membership = school_id
+        school = School.objects.get(id=school_id)
+        request.user.school_membership = school
         request.user.save()
 
         User = get_user_model()

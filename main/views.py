@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views import generic
 from main.models import CustomUser, School
-from django.contrib.auth import logout
+from django.contrib.auth import logout, get_user_model
 from django.http import JsonResponse
 
 
@@ -18,13 +18,17 @@ class IndexView(generic.TemplateView):
             return super().get_context_data(**kwargs)
         
 # Pick from list of schools
-def school_list(request):
+def select_school(request):
     if request.method == 'POST':
-        school_id = request.POST.get('school')
-        school = School.objects.get(id=school_id)
-        # Do something with the selected school
-        # Then redirect to a new page
-        return redirect('some-other-url-name')
+        school_id = request.POST['school']
+        #print(school_id)
+        request.user.school_membership = school_id
+        request.user.save()
+
+        User = get_user_model()
+        request.user = User.objects.get(id=request.user.id)
+
+        return redirect('/')
     else:
         schools = School.objects.all()
         return render(request, 'main/school_list.html', {'schools': schools})
@@ -36,3 +40,4 @@ def LogoutView(request):
         return JsonResponse({"message": "Logged out successfully"}, status=200)
     else:
         return JsonResponse({"error": "Invalid request method"}, status=400)
+

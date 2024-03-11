@@ -14,7 +14,14 @@
     <p>You are not an admin!</p>
 
     {% endif %}
-    <a href="/pickschool">Pick School</a>
+    {% if user.school_membership_id%}
+    <p>You are a member of {{ user.school_membership.name }}!</p>
+    {% else %}
+    <p>You have not selected a school yet!</p>
+    <a href="/select_school">Pick School</a>
+    {% endif %}
+
+
     <br>
     <br>
     <a href="/accounts/logout/" id="logout">Logout</a>

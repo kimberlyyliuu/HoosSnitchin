@@ -6,7 +6,7 @@
   <body>
     {% if user.is_authenticated %}
     <h1>Hello, {{ user.username }}</h1>
-    <form method="POST" action="{% url 'index' %}">
+    <form method="POST" action="{% url 'main:select_school' %}">
       {% csrf_token %}
       <label for="school">Select a school:</label>
       <select name="school" id="school">

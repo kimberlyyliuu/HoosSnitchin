@@ -2,18 +2,19 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 
-class CustomUser(AbstractUser):
-    is_site_admin = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.username
-
 class School(models.Model):
     name = models.CharField(max_length=200)
     #Can add additional fields
 
     def __str__(self):
         return self.name
+
+class CustomUser(AbstractUser):
+    is_site_admin = models.BooleanField(default=False)
+    school_membership = models.ForeignKey(School, on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return self.username
 
 class MessageBoard(models.Model):
     admin = models.ForeignKey(

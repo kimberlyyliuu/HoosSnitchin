@@ -1,5 +1,6 @@
+from django.shortcuts import render
 from django.views import generic
-from main.models import CustomUser
+from main.models import CustomUser, School
 from django.contrib.auth import logout
 from django.http import JsonResponse
 
@@ -15,6 +16,18 @@ class IndexView(generic.TemplateView):
             return context
         else:
             return super().get_context_data(**kwargs)
+        
+# Pick from list of schools
+def school_list(request):
+    if request.method == 'POST':
+        school_id = request.POST.get('school')
+        school = School.objects.get(id=school_id)
+        # Do something with the selected school
+        # Then redirect to a new page
+        return redirect('some-other-url-name')
+    else:
+        schools = School.objects.all()
+        return render(request, 'main/school_list.html', {'schools': schools})
 
 
 def LogoutView(request):

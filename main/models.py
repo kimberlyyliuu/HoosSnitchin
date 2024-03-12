@@ -29,6 +29,13 @@ class MessageBoard(models.Model):
     def __str__(self):
         return self.title
 
+class Event(models.Model):
+    message_board = models.ForeignKey(MessageBoard, on_delete=models.CASCADE, related_name="created_events")
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.title
 
 class Comment(models.Model):
     user = models.ForeignKey(

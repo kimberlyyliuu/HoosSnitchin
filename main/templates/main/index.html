@@ -16,6 +16,7 @@
     {% endif %}
     {% if user.school_membership_id%}
     <p>You are a member of {{ user.school_membership.name }}!</p>
+    <a href="/{{user.school_membership_id}}">Take me to the message board!</a>
     {% else %}
     <p>You have not selected a school yet!</p>
     <a href="/select_school">Pick School</a>

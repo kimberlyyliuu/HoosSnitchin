@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Welcome to the Message Board for the {{ user.school_membership.name }}</title>
+    </head>
+    <body>
+        <h1>{{ user.school_membership.name }}</h1>
+        <p>Here are a list of events for your school:</p>
+        {% for event in events %}
+            <li><a href="/{{event.message_board.id}}/{{ event.id }}/">{{ event.title }}</a></li>
+        {% endfor %}
+    </body>
+</html>

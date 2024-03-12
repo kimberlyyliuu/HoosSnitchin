@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.views import generic
-from main.models import CustomUser, School
+from main.models import CustomUser, School, Event
 from django.contrib.auth import logout, get_user_model
 from django.http import JsonResponse
 
@@ -32,6 +32,10 @@ def select_school(request):
     else:
         schools = School.objects.all()
         return render(request, 'main/school_list.html', {'schools': schools})
+
+def message_board_view(request, message_board_id):
+    events = Event.objects.filter(message_board_id=message_board_id)
+    return render(request, 'main/message_boards.html', {'events': events})
 
 
 def LogoutView(request):

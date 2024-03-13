@@ -3,6 +3,8 @@ from django.views import generic
 from main.models import CustomUser, School, Event
 from django.contrib.auth import logout, get_user_model
 from django.http import JsonResponse
+from django.shortcuts import render, redirect
+from main.forms import DocumentForm
 
 
 # display the user's name
@@ -17,11 +19,12 @@ class IndexView(generic.TemplateView):
             return context
         else:
             return super().get_context_data(**kwargs)
-        
+
+
 # Pick from list of schools
 def select_school(request):
-    if request.method == 'POST':
-        school_id = request.POST['school']
+    if request.method == "POST":
+        school_id = request.POST["school"]
         school = School.objects.get(id=school_id)
         request.user.school_membership = school
         request.user.save()
@@ -29,14 +32,15 @@ def select_school(request):
         User = get_user_model()
         request.user = User.objects.get(id=request.user.id)
 
-        return redirect('/')
+        return redirect("/")
     else:
         schools = School.objects.all()
-        return render(request, 'main/school_list.html', {'schools': schools})
+        return render(request, "main/school_list.html", {"schools": schools})
+
 
 def message_board_view(request, message_board_id):
     events = Event.objects.filter(message_board_id=message_board_id)
-    return render(request, 'main/message_boards.html', {'events': events})
+    return render(request, "main/message_boards.html", {"events": events})
 
 
 def LogoutView(request):
@@ -46,3 +50,15 @@ def LogoutView(request):
     else:
         return JsonResponse({"error": "Invalid request method"}, status=400)
 
+
+def document_upload_view(request):
+    if request.method == "POST":
+        form = DocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            new_doc = form.save(commit=False)
+            new_doc.user = request.user
+            new_doc.save()
+            return redirect("main:index")
+    else:
+        form = DocumentForm()
+    return render(request, "main/document_upload.html", {"form": form})

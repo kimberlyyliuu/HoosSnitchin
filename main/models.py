@@ -48,3 +48,11 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"{self.user.username}: {self.comment_text[:50]}"
+
+
+class Document(models.Model):
+    title = models.CharField(max_length=255)
+    document = models.FileField()
+
+    def __str__(self):
+        return f"{self.title}"

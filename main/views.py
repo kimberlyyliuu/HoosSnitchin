@@ -13,6 +13,7 @@ class IndexView(generic.TemplateView):
         if self.request.user.is_authenticated:
             context = super().get_context_data(**kwargs)
             context["user"] = CustomUser.objects.get(username=self.request.user)
+            context["schools"] = School.objects.all()
             return context
         else:
             return super().get_context_data(**kwargs)

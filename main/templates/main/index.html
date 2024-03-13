@@ -15,8 +15,12 @@
 
     {% endif %}
     {% if user.school_membership_id%}
-    <p>You are a member of {{ user.school_membership.name }}!</p>
-    <a href="/{{user.school_membership_id}}">Take me to the message board!</a>
+        <p>You are a member of {{ user.school_membership.name }}!</p>
+        <a href="/{{user.school_membership_id}}">Take me to my college's message board!</a>
+        <p>Alternatively, select from this dropdown:</p>
+        {% for school in schools %}
+            <li><a href="/{{ school.id }}">{{ school.name }}'s Message Board</a></li>
+        {% endfor %}
     {% else %}
     <p>You have not selected a school yet!</p>
     <a href="/select_school">Pick School</a>

@@ -2,16 +2,26 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 
+class School(models.Model):
+    name = models.CharField(max_length=200)
+    #Can add additional fields
+
+    def __str__(self):
+        return self.name
+
 class CustomUser(AbstractUser):
     is_site_admin = models.BooleanField(default=False)
+    school_membership = models.ForeignKey(School, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.username
 
-
 class MessageBoard(models.Model):
     admin = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE, related_name="created_message_boards"
+    )
+    school = models.ForeignKey(
+        School, on_delete=models.CASCADE, related_name="message_boards"
     )
     title = models.CharField(max_length=100)
     description = models.TextField()
@@ -19,6 +29,13 @@ class MessageBoard(models.Model):
     def __str__(self):
         return self.title
 
+class Event(models.Model):
+    message_board = models.ForeignKey(MessageBoard, on_delete=models.CASCADE, related_name="created_events")
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.title
 
 class Comment(models.Model):
     user = models.ForeignKey(

@@ -18,4 +18,4 @@ class CustomSignupForm(SignupForm):
 class ReportForm(forms.ModelForm):
     class Meta:
         model = Report
-        fields = ["description", ]
+        fields = ["description", "document"]

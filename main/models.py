@@ -20,6 +20,7 @@ class Event(models.Model):
 class Document(models.Model):
     title = models.CharField(max_length=255)
     document = models.FileField()
+    report = models.ForeignKey("Report", on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.title}"
@@ -30,7 +31,6 @@ class Report(models.Model):
     date_time = models.DateTimeField()
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     event = models.ForeignKey("Event", on_delete=models.CASCADE)
-    document = models.ForeignKey("Document", on_delete=models.CASCADE, blank=True, null=True)
     
     def __str__(self):
         return self.description

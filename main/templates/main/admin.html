@@ -1,0 +1,13 @@
+<h1>Admin Dashboard</h1>
+<div>
+  <h2>Reports</h2>
+  <ul>
+    {% for report in reports %}
+    <li>
+      {{ report.description }} - {{ report.date }} - {{ report.user.username }}
+    </li>
+    {% for url in report.file_urls %}
+    <img src="{{ url }}" alt="report image" />
+    {% endfor %} {% endfor %}
+  </ul>
+</div>

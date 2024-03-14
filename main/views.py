@@ -1,13 +1,29 @@
 from django.shortcuts import redirect, render
 from django.views import generic
-from main.models import CustomUser, Event
-from django.contrib.auth import logout, get_user_model
+from main.models import CustomUser, Document, Report
+from django.contrib.auth import logout
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from main.forms import DocumentForm
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
+from main.models import Report
+from main.s3_utils import get_s3_presigned_url
 
 
-# display the user's name
+@login_required(login_url="/accounts/login/")
+def admin_view(request):
+    if not request.user.is_site_admin:
+        return HttpResponseForbidden("You are not authorized to view this page")
+    reports = Report.objects.all()
+    for report in reports:
+        report_docs = Document.objects.filter(report=report)
+        report.file_urls = [
+            get_s3_presigned_url(doc.document.name) for doc in report_docs
+        ]
+    return render(request, "main/admin.html", {"reports": reports})
+
+
 class IndexView(generic.TemplateView):
     template_name = "main/index.html"
 

@@ -28,14 +28,26 @@ def LogoutView(request):
         return JsonResponse({"error": "Invalid request method"}, status=400)
 
 
-def document_upload_view(request):
+def report_upload_view(request):
     if request.method == "POST":
         form = ReportForm(request.POST, request.FILES)
+        if form.is_valid():
+            new_report = form.save(commit=False)
+            new_report.user = request.user
+            new_report.save()
+            return redirect("main:document", {"report": new_report})
+    else:
+        form = ReportForm()
+    return render(request, "main/report_upload.html", {"form": form})
+
+def document_upload_view(request):
+    if request.method == "POST":
+        form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             new_doc = form.save(commit=False)
             new_doc.user = request.user
             new_doc.save()
             return redirect("main:index")
     else:
-        form = ReportForm()
+        form = DocumentForm()
     return render(request, "main/document_upload.html", {"form": form})

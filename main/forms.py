@@ -1,5 +1,5 @@
 from allauth.account.forms import SignupForm
-from main.models import Document
+from main.models import Report
 from django import forms
 
 
@@ -15,7 +15,7 @@ class CustomSignupForm(SignupForm):
         return user
 
 
-class DocumentForm(forms.ModelForm):
+class ReportForm(forms.ModelForm):
     class Meta:
-        model = Document
-        fields = ["title", "document"]
+        model = Report
+        fields = ["description", ]

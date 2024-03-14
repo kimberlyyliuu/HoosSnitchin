@@ -30,7 +30,7 @@ class Report(models.Model):
     date = models.DateField()
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     event = models.ForeignKey("Event", on_delete=models.CASCADE)
-    document = models.ForeignKey("Document", on_delete=models.CASCADE)
+    document = models.ForeignKey("Document", on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
-        return self.title
+        return self.description

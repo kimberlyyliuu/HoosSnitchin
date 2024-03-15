@@ -26,7 +26,7 @@ class Report(models.Model):
     date_time = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     event = models.ForeignKey("Event", on_delete=models.CASCADE)
-    document = models.ForeignKey("Document", on_delete=models.SET_NULL, null=True, blank=True)
+    document = models.ManyToManyField("Document")
 
     def __str__(self):
         return self.description

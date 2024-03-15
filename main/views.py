@@ -44,10 +44,13 @@ def document_upload_view(request, report_id):
     if request.method == "POST":
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
-            for inputs in form.cleaned_data:
-                doc = Document.objects.create(document=inputs["documents"]) #not working atm - not sure what to do
-                report = Report.objects.filter(id=report_id)
-                report.update(document=doc)
+            
+            files = form.cleaned_data['file_field']
+            for f in files:
+                doc = Document.objects.create(document=f)
+                report = Report.objects.get(id=report_id)
+                report.document.add(doc)
+            
             return redirect("main:index")
     else:
         form = DocumentForm()

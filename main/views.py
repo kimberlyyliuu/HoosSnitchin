@@ -51,7 +51,7 @@ def document_upload_view(request, report_id):
             
             files = form.cleaned_data['file_field']
             for f in files:
-                doc = Document.objects.create(document=f)
+                doc = Document.objects.create(document=f, title=f.name)
                 report = Report.objects.get(id=report_id)
                 report.document.add(doc)
             

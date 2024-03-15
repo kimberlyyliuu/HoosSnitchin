@@ -19,6 +19,8 @@ class Event(models.Model):
 
 class Document(models.Model):
     document = models.FileField()
+    created_at = models.DateTimeField(default=timezone.now)
+    title = models.CharField(max_length=100, default="No title")
     #no title - could revert
 
 class Report(models.Model):

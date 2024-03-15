@@ -33,7 +33,11 @@ def report_upload_view(request):
         form = ReportForm(request.POST, request.FILES)
         if form.is_valid():
             new_report = form.save(commit=False)
-            new_report.user = request.user
+            #Anonymous user
+            if not request.user.is_authenticated:
+                new_report.user = CustomUser.objects.get(username='anonymousSubmissions')
+            else:
+                new_report.user = request.user
             new_report.save()
             return redirect(f"{new_report.id}/upload", {"report": new_report})
     else:

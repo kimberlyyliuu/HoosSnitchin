@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -16,12 +17,16 @@ class Event(models.Model):
     def __str__(self):
         return self.title
 
+class Document(models.Model):
+    document = models.FileField()
+    #no title - could revert
+
 class Report(models.Model):
     description = models.TextField()
-    date_time = models.DateTimeField()
+    date_time = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     event = models.ForeignKey("Event", on_delete=models.CASCADE)
-    document = models.ForeignKey("Document")
+    document = models.ForeignKey("Document", on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.description

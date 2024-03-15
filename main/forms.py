@@ -18,12 +18,11 @@ class CustomSignupForm(SignupForm):
 class ReportForm(forms.ModelForm):
     class Meta:
         model = Report
-        fields = ["description"]
+        fields = ["description", "event"]
 
 #stuff from django documentation
 class MultipleFileInput(forms.ClearableFileInput):
     allow_multiple_selected = True
-
 
 class MultipleFileField(forms.FileField):
     def __init__(self, *args, **kwargs):
@@ -38,6 +37,5 @@ class MultipleFileField(forms.FileField):
             result = single_file_clean(data, initial)
         return result
 
-
-class FileFieldForm(forms.Form):
+class DocumentForm(forms.Form):
     file_field = MultipleFileField()

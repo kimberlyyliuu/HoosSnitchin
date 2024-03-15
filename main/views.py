@@ -1,10 +1,10 @@
 from django.shortcuts import redirect, render
 from django.views import generic
-from main.models import CustomUser, Event
+from main.models import CustomUser, Event, Document, Report
 from django.contrib.auth import logout, get_user_model
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from main.forms import ReportForm
+from main.forms import ReportForm, DocumentForm
 
 
 # display the user's name
@@ -35,18 +35,19 @@ def report_upload_view(request):
             new_report = form.save(commit=False)
             new_report.user = request.user
             new_report.save()
-            return redirect("main:document", {"report": new_report})
+            return redirect(f"{new_report.id}/upload", {"report": new_report})
     else:
         form = ReportForm()
     return render(request, "main/report_upload.html", {"form": form})
 
-def document_upload_view(request):
+def document_upload_view(request, report_id):
     if request.method == "POST":
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
-            new_doc = form.save(commit=False)
-            new_doc.user = request.user
-            new_doc.save()
+            for inputs in form.cleaned_data:
+                doc = Document.objects.create(document=inputs["documents"]) #not working atm - not sure what to do
+                report = Report.objects.filter(id=report_id)
+                report.update(document=doc)
             return redirect("main:index")
     else:
         form = DocumentForm()

@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views import generic
-from main.models import CustomUser, Event, Document, Report
-from django.contrib.auth import logout, get_user_model
+from main.models import CustomUser, Document, Report
+from django.contrib.auth import logout
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from main.forms import ReportForm, DocumentForm

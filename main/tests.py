@@ -112,9 +112,7 @@ class FormsTests(TestCase):
     # Test 6-2: Test the document form
     def test_document_form(self):
         response = self.client.post("/report/1/upload", {"file_field": "Test Document"})
-        self.assertEqual(
-            response.status_code, 1010101
-        )  # was 302 (try break real quick)
+        self.assertEqual(response.status_code, 302)
         # self.assertEqual(response.context['form'].cleaned_data['file_field'], 'Test Document')
 
 

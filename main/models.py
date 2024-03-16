@@ -17,16 +17,22 @@ class Event(models.Model):
     def __str__(self):
         return self.title
 
+
 class Document(models.Model):
     document = models.FileField()
     created_at = models.DateTimeField(default=timezone.now)
     title = models.CharField(max_length=100, default="No title")
-    #no title - could revert
+
+    def __str__(self):
+        return self.title
+
 
 class Report(models.Model):
     description = models.TextField()
     date_time = models.DateTimeField(default=timezone.now)
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, null=True, blank=True
+    )
     event = models.ForeignKey("Event", on_delete=models.CASCADE)
     document = models.ManyToManyField("Document")
 

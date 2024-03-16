@@ -33,9 +33,9 @@ def report_upload_view(request):
         form = ReportForm(request.POST, request.FILES)
         if form.is_valid():
             new_report = form.save(commit=False)
-            #Anonymous user
+            # Anonymous user
             if not request.user.is_authenticated:
-                new_report.user = CustomUser.objects.get(username='anonymousSubmissions')
+                new_report.user = None
             else:
                 new_report.user = request.user
             new_report.save()
@@ -44,17 +44,18 @@ def report_upload_view(request):
         form = ReportForm()
     return render(request, "main/report_upload.html", {"form": form})
 
+
 def document_upload_view(request, report_id):
     if request.method == "POST":
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
-            
-            files = form.cleaned_data['file_field']
+
+            files = form.cleaned_data["file_field"]
             for f in files:
                 doc = Document.objects.create(document=f, title=f.name)
                 report = Report.objects.get(id=report_id)
                 report.document.add(doc)
-            
+
             return redirect("main:index")
     else:
         form = DocumentForm()

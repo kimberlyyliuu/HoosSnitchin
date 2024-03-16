@@ -1,0 +1,65 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'main/styles.css' %}" />
+    <title>Admin Dashboard</title>
+  </head>
+  <body>
+    <h1>Admin Dashboard</h1>
+    <div class="box">
+      <h2>Reports</h2>
+      {% for report in reports %}
+      <div class="report-card">
+        <p class="report-text">When: {{ report.date_time }}</p>
+        <p class="report-text">Where: {{ report.event }}</p>
+        <p class="report-text">What: {{ report.description }}</p>
+        <p class="report-section-header">Images</p>
+        <div class="report-section-wrapper">
+          {% for img in report.images %}
+          <div class="report-image" style="background-image: url('{{ img }}')">
+            <div
+              class="report-download"
+              onclick="window.location.href='{{ img }}'"
+            >
+              Download
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <p class="report-section-header">Text Uploads</p>
+        {% for txt in report.txts %}
+        <div class="report-section-wrapper">
+          <div class="report-iframe-wrapper">
+            <iframe class="report-iframe" src="{{ txt }}"> </iframe>
+            <div
+              class="report-download"
+              onclick="window.location.href='{{ txt }}'"
+            >
+              Download
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        <p class="report-section-header">PDF Uploads</p>
+        {% for pdf in report.pdfs %}
+        <div class="report-section-wrapper">
+          <div class="report-iframe-wrapper">
+            <iframe class="report-iframe" src="{{ pdf }}"> </iframe>
+            <div
+              class="report-download"
+              onclick="window.location.href='{{ pdf }}'"
+            >
+              Download
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>

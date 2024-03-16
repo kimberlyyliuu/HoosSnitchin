@@ -31,8 +31,9 @@
           {% endfor %}
         </div>
         <p class="report-section-header">Text Uploads</p>
-        {% for txt in report.txts %}
+
         <div class="report-section-wrapper">
+          {% for txt in report.txts %}
           <div class="report-iframe-wrapper">
             <iframe class="report-iframe" src="{{ txt }}"> </iframe>
             <div
@@ -42,11 +43,11 @@
               Download
             </div>
           </div>
+          {% endfor %}
         </div>
-        {% endfor %}
         <p class="report-section-header">PDF Uploads</p>
-        {% for pdf in report.pdfs %}
         <div class="report-section-wrapper">
+          {% for pdf in report.pdfs %}
           <div class="report-iframe-wrapper">
             <iframe class="report-iframe" src="{{ pdf }}"> </iframe>
             <div
@@ -56,8 +57,8 @@
               Download
             </div>
           </div>
+          {% endfor %}
         </div>
-        {% endfor %}
       </div>
       {% endfor %}
     </div>

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Upload Document</title>
+    <title>Upload Documents</title>
   </head>
   <body>
-    <h1>Upload Document</h1>
-    <form method="post" enctype="multipart/form-data">
+    <h1>Upload Documents</h1>
+    <form method="POST" enctype="multipart/form-data">
       {% csrf_token %} {{ form.as_p }}
       <button type="submit">Upload</button>
     </form>
+    <!-- skip document upload button -->
+    <a href="{% url 'main:index' %}">Skip</a>
   </body>
 </html>

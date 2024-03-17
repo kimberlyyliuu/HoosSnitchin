@@ -127,3 +127,16 @@ h2 {
   padding: 0.25rem;
   cursor: pointer;
 }
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    text-align: center;
+
+}

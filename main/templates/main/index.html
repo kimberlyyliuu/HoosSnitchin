@@ -2,12 +2,16 @@
 <html>
   <head>
     <title>Homepage</title>
+    <style>
+      body, h1, h2, h3, h4, h5, h6, p, a {
+        font-family: Helvetica, Arial, sans-serif;
+      }
+    </style>
   </head>
   <body>
     {% if user.is_authenticated %}
-    <h1>Username: {{ user.username }}</h1>
-    <h2>First Name: {{ user.first_name }}</h2>
-    <h3>Last Name: {{ user.last_name }}</h3>
+    <h2>First Name: {{ user.first_name }} Last Name: {{ user.last_name }}</h2>
+    <h2>Username: {{ user.username }}</h2>
     {% if user.is_site_admin %}
     <p>You are an admin!</p>
     <a href="/admin-view/">Admin Dashboard</a>

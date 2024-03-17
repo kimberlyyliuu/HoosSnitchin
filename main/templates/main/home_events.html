@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'header.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>Events</title>
+</head>
+<body>
+<h4>Events</h4>
+    <ul>
+      {% for event in events %}
+      <li>
+        {{ event.name }}
+        <button onclick="window.location.href='/report/';">File A Report</button>
+      </li>
+      {% endfor %}
+    </ul>
+
+</body>
+{% include 'footer.html' %}
+</html>

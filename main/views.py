@@ -44,10 +44,9 @@ class IndexView(generic.TemplateView):
         else:
             return super().get_context_data(**kwargs)
 
-    def index(request):
-        events = Event.objects.all()
-        print(events)
-        return render(request, 'index.html', {'events': events})
+def eventView(request):
+    events = Event.objects.all()
+    return render(request, 'main/home_events.html', {'events': events})
 
 
 def LogoutView(request):

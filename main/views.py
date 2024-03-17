@@ -84,3 +84,7 @@ def document_upload_view(request, report_id):
     else:
         form = DocumentForm()
     return render(request, "main/document_upload.html", {"form": form})
+
+
+
+

@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html>
 {% include 'header.html' %}
-{% include 'navbar.html' %}
   <head>
     <title>Homepage</title>
     <style>
       body, h1, h2, h3, h4, h5, h6, p, a {
         font-family: Helvetica, Arial, sans-serif;
       }
-
     </style>
   </head>
   <body>
@@ -21,6 +19,17 @@
     <p>You are not an admin!</p>
     {% endif %}
     <br />
+
+    <h4>Events</h4>
+    <ul>
+      {% for event in events %}
+      <li>
+        {{ event.name }}
+        <button onclick="window.location.href='/report/';">File A Report</button>
+      </li>
+      {% endfor %}
+    </ul>
+
     <button onclick="window.location.href='/report/';">File A Report</button>
     <br />
     {% else %}

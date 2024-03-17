@@ -10,6 +10,7 @@
         text-align: center;
         color: #6495ED;
         padding: 20px;
+        cursor: pointer;
       }
       .username {
       position: absolute;
@@ -26,7 +27,10 @@
   </head>
   <body>
     <header>
-      <h1>HoosSnitchin</h1>
+      <div onclick="window.location.href='/';">
+        <h1>HoosSnitchin</h1>
+      </div>
+
       {% if user.is_authenticated %}
         <div class="username"> Username: {{ user.username }}</div>
         <div class="logoutbutton">

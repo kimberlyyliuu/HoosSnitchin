@@ -25,7 +25,7 @@
     <ul>
       {% for event in events %}
       <li>
-        {{ event.name }}
+        {{ event.title }} - {{ event.description }}
         <button onclick="window.location.href='/report/';">File A Report</button>
       </li>
       {% endfor %}
@@ -45,3 +45,4 @@
   </body>
 {% include 'footer.html' %}
 </html>
+

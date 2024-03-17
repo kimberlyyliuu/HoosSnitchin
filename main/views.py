@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from main.models import Report
 from main.s3_utils import get_s3_presigned_url
+from .models import Event
 import requests
 
 
@@ -42,6 +43,11 @@ class IndexView(generic.TemplateView):
             return context
         else:
             return super().get_context_data(**kwargs)
+
+    def index(request):
+        events = Event.objects.all()
+        print(events)
+        return render(request, 'index.html', {'events': events})
 
 
 def LogoutView(request):

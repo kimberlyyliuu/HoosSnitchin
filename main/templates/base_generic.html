@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body, p, h1, footer {
+        font-family: Helvetica, Arial, sans-serif;
+      }
+      footer {
+        position: fixed; /* Fixed positioning */
+        bottom: 0; /* Anchors the footer to the bottom of the page */
+        width: 100%; /* Ensure the footer extends across the full width of the viewport */
+        text-align: center;
+        background-color: #343a40; /* Dark background color */
+        color: #ffffff; /* White text color */
+        padding: 20px; /* Adjust padding as needed */
+        box-sizing: border-box; /* Ensures padding does not add to the set width */
+      }
+      header {
+        text-align: center;
+        color: #6495ED;
+        padding: 20px;
+        cursor: pointer;
+      }
+      .username, .logoutbutton {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+      .logoutbutton {
+        top: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div onclick="window.location.href='/';">
+        <h1>HoosSnitchin</h1>
+      </div>
+      {% if user.is_authenticated %}
+        <div class="username"> Username: {{ user.username }}</div>
+        <div class="logoutbutton">
+          <button onclick="window.location.href='/accounts/logout/';" style="accent-color: darkred">Logout</button>
+        </div>
+      {% endif %}
+    </header>
+
+    <footer>
+      <div class="container">
+        <p>This system is a class project and is not monitored. Please do not submit any real information.</p>
+        <p>If you need help or support, please visit <a href="https://s24.cs3240.org/project.html">this resource</a>.</p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -4,17 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Events</title>
+    <style>
+        body, h1, h2, h3, h4, h5, h6, p, a {
+            font-family: Helvetica, Arial, sans-serif;
+        }
+        .event {
+            border: 1px solid black;
+            padding: 15px;
+            margin: 10px;
+            border-spacing: 10px;
+        }
+        .Events_Title{
+            text-align: center;
+            padding: 5px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+    </style>
 </head>
 <body>
-<h4>Events</h4>
+<div class="Events_Title"><h4>Events</h4></div>
     <ul>
-      {% for event in events %}
-      <li>
-        {{ event.title }} - {{ event.description }}
+    {% for event in events %}
+
+        <div class="event">
+            {{ event.title }}
+        <ul>
+            <li>Description: {{ event.description }}</li>
+        </ul>
+        Login to
         <button onclick="window.location.href='/report/';">File A Report</button>
-      </li>
-      {% endfor %}
-    </ul>
+        or
+        <button onclick="window.location.href='/report/';">File A Report Anonymously</button>
+        </div>
+
+
+    {% endfor %}
+</ul>
+
 
 </body>
 {% include 'footer.html' %}

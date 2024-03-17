@@ -18,24 +18,25 @@
   <body>
     {% if user.is_authenticated %}
     <h3>Welcome, {{ user.first_name }} {{ user.last_name }}</h3>
-    <div class="username">Username: {{ user.username }}</div>
+    <div class="username">Username: {{ user.username }}</div>>
     {% if user.is_site_admin %}
     <p>You are an admin!</p>
-    <button href="/admin-view/">Admin Dashboard</button>
+    <button onclick="window.location.href='/admin-view/';">Admin Dashboard</button>
     {% else %}
     <p>You are not an admin!</p>
     {% endif %}
     <br />
-    <button href="/report/" id="report">File A Report</button>
+    <button onclick="window.location.href='/report/';">File A Report</button>
     <br />
-    <button href="/accounts/logout/" id="logout" style="accent-color: darkred">Logout</button>
+    <button onclick="window.location.href='/accounts/logout/';"  style="accent-color: darkred">Logout</button>
     {% else %}
     <h1>You should log in!</h1>
-    <button href="/accounts/login/">Login</button>
+    <button onclick="window.location.href='/accounts/login/';">Login</button>
+
     <br />
     or
     <br />
-    <button href="/report/" id="report">File A Report Anonymously</button>
+    <button onclick="window.location.href='/report/';" id="report">File A Report Anonymously</button>
     {% endif %}
   </body>
 {% include 'footer.html' %}

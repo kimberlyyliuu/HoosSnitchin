@@ -1,24 +1,19 @@
 <!DOCTYPE html>
 <html>
 {% include 'header.html' %}
-
+{% include 'navbar.html' %}
   <head>
     <title>Homepage</title>
     <style>
       body, h1, h2, h3, h4, h5, h6, p, a {
         font-family: Helvetica, Arial, sans-serif;
       }
-      .username {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-    }
+
     </style>
   </head>
   <body>
     {% if user.is_authenticated %}
     <h3>Welcome, {{ user.first_name }} {{ user.last_name }}</h3>
-    <div class="username">Username: {{ user.username }}</div>>
     {% if user.is_site_admin %}
     <p>You are an admin!</p>
     <button onclick="window.location.href='/admin-view/';">Admin Dashboard</button>
@@ -28,7 +23,6 @@
     <br />
     <button onclick="window.location.href='/report/';">File A Report</button>
     <br />
-    <button onclick="window.location.href='/accounts/logout/';"  style="accent-color: darkred">Logout</button>
     {% else %}
     <h1>You should log in!</h1>
     <button onclick="window.location.href='/accounts/login/';">Login</button>

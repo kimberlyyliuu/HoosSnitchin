@@ -95,6 +95,6 @@ def user_reports(request):
     # Assuming you want to display reports for the logged-in user
     reports = Report.objects.filter(user=request.user) #come back later
     context = {'reports': reports}
-    return render(request, 'main/mysnitches.html', context)
+    return render(request, 'main/myreports.html', context)
 
 

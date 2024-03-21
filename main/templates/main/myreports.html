@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% include 'header.html' %}
+{%  include 'footer.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Reports</title>
+</head>
+<body>
+    <h1>Reports for {{ request.user.username }}</h1>
+    {% if reports %}
+        <ul>
+        {% for report in reports %}
+            <li>
+                <h2>{{ report.event.title }}</h2>
+                <p>{{ report.description }}</p>
+                <p>Date: {{ report.date }}</p>
+                {% if report.document %}
+                    <p>Document: <a href="{{ report.document.url }}">{{ report.document.title }}</a></p>
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No reports available.</p>
+    {% endif %}
+</body>
+</html>

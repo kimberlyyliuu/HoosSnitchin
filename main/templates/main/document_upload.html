@@ -1,13 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 {% include 'header.html' %}
   <head>
     <title>Upload Documents</title>
-    <style>
-      body, h1, form, button, a {
-        font-family: Helvetica, Arial, sans-serif;
-      }
-    </style>
+       <link rel="stylesheet" href="{% static 'main/document_upload.css' %}" />
   </head>
   <body>
     <h1>Upload Documents</h1>

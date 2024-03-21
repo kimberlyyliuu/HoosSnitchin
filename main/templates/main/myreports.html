@@ -17,7 +17,7 @@
                 <p>{{ report.description }}</p>
                 <p>Date: {{ report.date_time }}</p>
                 {% if report.document %}
-                    <p>Document: <a href="{{ report.document.url }}">{{ report.document.title }}</a></p>
+                    <p>Document: {{ document.title }}</p>
                 {% endif %}
             </li>
         {% endfor %}

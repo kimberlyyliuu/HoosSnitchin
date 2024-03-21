@@ -91,5 +91,10 @@ def document_upload_view(request, report_id):
     return render(request, "main/document_upload.html", {"form": form})
 
 
+def user_reports(request):
+    # Assuming you want to display reports for the logged-in user
+    reports = Report.objects.filter(user=request.user) #come back later
+    context = {'reports': reports}
+    return render(request, 'main/mysnitches.html', context)
 
 

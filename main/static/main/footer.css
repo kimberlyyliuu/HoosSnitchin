@@ -1,0 +1,14 @@
+body, p, footer {
+        font-family: Helvetica, Arial, sans-serif;
+      }
+footer {
+    position: fixed; /* Fixed positioning */
+    bottom: 0; /* Anchors the footer to the bottom of the page */
+    width: 100%; /* Ensure the footer extends across the full width of the viewport */
+    text-align: center;
+    background-color: #343a40; /* Dark background color */
+    color: #ffffff; /* White text color */
+    padding: 20px; /* Adjust padding as needed */
+    box-sizing: border-box; /* Ensures padding does not add to the set width */
+
+}

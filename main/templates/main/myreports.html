@@ -15,7 +15,7 @@
             <li>
                 <h2>{{ report.event.title }}</h2>
                 <p>{{ report.description }}</p>
-                <p>Date: {{ report.date }}</p>
+                <p>Date: {{ report.date_time }}</p>
                 {% if report.document %}
                     <p>Document: <a href="{{ report.document.url }}">{{ report.document.title }}</a></p>
                 {% endif %}

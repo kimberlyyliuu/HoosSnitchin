@@ -16,10 +16,14 @@
         <div class="logoutbutton">
           <button onclick="window.location.href='/accounts/logout/';"  style="accent-color: darkred">Logout</button>
         </div>
+          <div class="myreportsbutton">
+        <button onclick="window.location.href='/my-reports/';">My Reports</button>
+        </div>
       {% else %}
       <div class="loginbutton">
           <button onclick="window.location.href='/accounts/login/';">Login</button>
       </div>
+      
       {% endif %}
 
       <div class="vieweventbutton">

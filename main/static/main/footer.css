@@ -18,7 +18,7 @@ main { /* Assuming you wrap your content in a <main> tag */
 footer {
     display: flex;
     flex-direction: column;
-    position: fixed;/* Fixed positioning */
+    position: absolute;
     bottom: 0; /* Anchors the footer to the bottom of the page */
     width: 100%; /* Ensure the footer extends across the full width of the viewport */
     text-align: center;

@@ -1,8 +1,24 @@
 body, p, footer {
         font-family: Helvetica, Arial, sans-serif;
       }
+
+
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0; /* Removes default margin */
+}
+
+main { /* Assuming you wrap your content in a <main> tag */
+    flex: 1; /* This allows the main content to expand and take up any available space, pushing the footer down */
+}
+
 footer {
-    position: fixed; /* Fixed positioning */
+    display: flex;
+    flex-direction: column;
+    position: fixed;/* Fixed positioning */
     bottom: 0; /* Anchors the footer to the bottom of the page */
     width: 100%; /* Ensure the footer extends across the full width of the viewport */
     text-align: center;

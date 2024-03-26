@@ -2,7 +2,7 @@ name: Django CI
 
 on:
   push:
-    branches: ["*"]
+    branches: ["arch-changes"]
   pull_request:
     branches: ["*"]
 
@@ -28,4 +28,5 @@ jobs:
       - name: Run Tests
         run: |
           python manage.py collectstatic
+          yes
           python manage.py test

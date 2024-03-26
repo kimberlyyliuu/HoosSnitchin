@@ -1,3 +1,5 @@
+from django.utils import timezone
+
 from main.models import CustomUser, Document, Report, Event
 from django.test import TestCase
 
@@ -44,13 +46,14 @@ class ReportModelTests(TestCase):
 class DocumentModelTests(TestCase):
     # Test 3-1: Creation
     def test_creation_DocumentModelTests(self):
+        datetime = timezone.now()
         document = Document.objects.create(
             document="Test Document",
-            created_at="2024-01-01 00:10:00",
+            created_at=datetime,
             title="Test Title",
         )
         self.assertEqual(document.document, "Test Document")
-        self.assertEqual(document.created_at, "2024-01-01 00:10:00")
+        self.assertEqual(document.created_at, datetime)
         self.assertEqual(document.title, "Test Title")
 
 

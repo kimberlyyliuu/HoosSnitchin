@@ -1,0 +1,30 @@
+body, p, footer {
+        font-family: Helvetica, Arial, sans-serif;
+      }
+
+
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0; /* Removes default margin */
+}
+
+main { /* Assuming you wrap your content in a <main> tag */
+    flex: 1; /* This allows the main content to expand and take up any available space, pushing the footer down */
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    bottom: 0; /* Anchors the footer to the bottom of the page */
+    width: 100%; /* Ensure the footer extends across the full width of the viewport */
+    text-align: center;
+    background-color: #343a40; /* Dark background color */
+    color: #ffffff; /* White text color */
+    padding: 20px; /* Adjust padding as needed */
+    box-sizing: border-box; /* Ensures padding does not add to the set width */
+
+}

@@ -1,11 +1,8 @@
-<!-- REFERENCES -->
-<!-- TITLE: How To Toggle Hide/Show using JS -->
-<!-- URL: https://www.w3schools.com/howto/howto_js_toggle_hide_show.asp -->
-<!-- NOTE: Used for <script> at bottom. -->
 {% load static %}
 <!DOCTYPE html>
 {% include 'header.html'%}
 <html lang="en">
+<script src='{% static 'main/reports_show.js' %}'></script>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -69,13 +66,4 @@
     </div>
   </body>
 {% include 'footer.html' %}
-<script>
-    function reports_show(report_id){
-        var report_content = document.getElementById(report_id);
-        if(report_content.style.display === "none")
-            report_content.style.display = "flex";
-        else
-            report_content.style.display = "none";
-    }
-</script>
 </html>

@@ -1,3 +1,7 @@
+<!-- REFERENCES -->
+<!-- TITLE: How To Toggle Hide/Show using JS -->
+<!-- URL: https://www.w3schools.com/howto/howto_js_toggle_hide_show.asp -->
+<!-- NOTE: Used for <script> at bottom. -->
 {% load static %}
 <!DOCTYPE html>
 {% include 'header.html'%}
@@ -13,7 +17,8 @@
     <div class="box">
       <h2>Reports</h2>
       {% for report in reports %}
-      <div class="report-card">
+      <button class="reports" onclick="reports_show({{ report.id }})">Report: {{ report.description }}</button>
+      <div class="report-card" id="{{ report.id }}">
         <p class="report-text">When: {{ report.date_time }}</p>
         <p class="report-text">Where: {{ report.event }}</p>
         <p class="report-text">What: {{ report.description }}</p>
@@ -64,4 +69,13 @@
     </div>
   </body>
 {% include 'footer.html' %}
+<script>
+    function reports_show(report_id){
+        var report_content = document.getElementById(report_id);
+        if(report_content.style.display === "none")
+            report_content.style.display = "flex";
+        else
+            report_content.style.display = "none";
+    }
+</script>
 </html>

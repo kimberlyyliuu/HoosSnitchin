@@ -16,6 +16,13 @@
       {% for report in reports %}
       <button class="reports" onclick="reports_show({{ report.id }})">Report: {{ report.description }}</button>
       <div class="report-card" id="{{ report.id }}">
+        {% if report.is_in_review %}
+            <p class="report-text">Status: In Review</p>
+        {% elif report.is_resolved %}
+            <p class="report-text">Status: Resolved</p>
+        {% else %}
+            <p class="report-text">Status: Not Reviewed</p>
+        {% endif %}
         <p class="report-text">When: {{ report.date_time }}</p>
         <p class="report-text">Where: {{ report.event }}</p>
         <p class="report-text">What: {{ report.description }}</p>
@@ -61,6 +68,11 @@
           </div>
           {% endfor %}
         </div>
+        <form method="POST">
+            {% csrf_token %} {{ form.as_p }}
+            <input type="hidden" name="form_id" value="{{ report.id }}">
+            <button type="submit">Resolve</button>
+        </form>
       </div>
       {% endfor %}
     </div>

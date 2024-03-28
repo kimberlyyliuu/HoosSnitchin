@@ -27,6 +27,12 @@ class ReportForm(forms.ModelForm):
         fields = ["description", "event"]
 
 
+class ResolveMessageForm(forms.ModelForm):
+    class Meta:
+        model = Report
+        fields = ["admin_notes"]
+
+
 # vvv Django Uploading Multiple Files code vvv
 class MultipleFileInput(forms.ClearableFileInput):
     allow_multiple_selected = True

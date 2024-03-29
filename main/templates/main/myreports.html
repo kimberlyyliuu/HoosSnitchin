@@ -15,6 +15,16 @@
                 <h2>{{ report.event.title }}</h2>
                 <p>{{ report.description }}</p>
                 <p>Date: {{ report.date_time }}</p>
+
+                <!--For Status of Report-->
+                {% if report.is_in_review %}
+                    <p>Status: Report is in review by an admin.</p>
+                {% elif report.is_resolved %}
+                    <p>Status: Report is resolved by an admin.</p>
+                {% else %}
+                    <p>Status: Report is pending.</p>
+                {% endif %}
+
                 {% if report.document.all %}
                    Documents:
                     <ul>
@@ -24,6 +34,13 @@
                     </ul>
                 {% else %}
                     <p>No documents available.</p>
+                {% endif %}
+                
+                <!--For Message from Admin-->
+                {% if report.admin_notes %}
+                    <p>Admin Notes: {{ report.admin_notes }}</p>
+                {% else %}
+                    <p>Admin have not made a message.</p>
                 {% endif %}
             </li>
         {% endfor %}

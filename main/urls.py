@@ -15,4 +15,5 @@ urlpatterns = [
         name="document_upload",
     ),
     path('my-reports/', views.user_reports, name='mysnitches'),
+    path('admin-notes/', views.admin_notes, name='admin-notes'),
 ]

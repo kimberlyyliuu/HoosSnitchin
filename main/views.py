@@ -107,3 +107,15 @@ def user_reports(request):
     context = {'reports': reports}
     return render(request, 'main/myreports.html', context)
 
+@login_required(login_url="/accounts/login/")
+def admin_notes(request, report_id):
+    report = Report.objects.get(id=report_id)
+    if request.method == "POST":
+        form = ResolveMessageForm(request.POST)
+        if form.is_valid():
+            report.admin_notes = form.cleaned_data["admin_notes"]
+            report.save()
+            return redirect("main:index")
+    else:
+        form = ResolveMessageForm()
+    return render(request, "main/admin_notes.html", {"form": form, "report": report})

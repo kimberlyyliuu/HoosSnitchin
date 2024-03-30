@@ -38,7 +38,7 @@ def admin_view(request):
             notes = form.cleaned_data["admin_notes"]
             curr_report = Report.objects.get(id=request.POST.get("form_id"))
             curr_report.admin_notes = notes
-            curr_report.is_in_report = False
+            curr_report.is_in_review = False
             curr_report.is_resolved = True
             curr_report.save()
     else:

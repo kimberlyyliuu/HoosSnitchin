@@ -35,6 +35,9 @@ class Report(models.Model):
     )
     event = models.ForeignKey("Event", on_delete=models.CASCADE)
     document = models.ManyToManyField("Document", blank=True)
+    is_in_review = models.BooleanField(default=False)
+    is_resolved = models.BooleanField(default=False)
+    admin_notes = models.TextField()
 
     def __str__(self):
         return self.description

@@ -2,12 +2,13 @@ from django.shortcuts import redirect, render
 from django.views import generic
 from main.models import CustomUser, Document, Report
 from django.contrib.auth import logout
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
-from main.forms import ReportForm, DocumentForm
+from main.forms import ReportForm, DocumentForm, ResolveMessageForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from main.models import Report
+from django.views.decorators.csrf import csrf_exempt
 from main.s3_utils import get_s3_presigned_url
 from .models import Event
 import requests
@@ -30,7 +31,19 @@ def admin_view(request):
         ]
         report.txts = [url for url in file_urls if ".txt" in url]
         report.pdfs = [url for url in file_urls if ".pdf" in url]
-    return render(request, "main/admin-view.html", {"reports": reports})
+
+    if request.method == "POST":
+        form = ResolveMessageForm(request.POST, request.FILES)
+        if form.is_valid():
+            notes = form.cleaned_data["admin_notes"]
+            curr_report = Report.objects.get(id=request.POST.get("form_id"))
+            curr_report.admin_notes = notes
+            curr_report.is_in_review = False
+            curr_report.is_resolved = True
+            curr_report.save()
+    else:
+        form = ResolveMessageForm()
+    return render(request, "main/admin-view.html", {"reports": reports, "form":form})
 
 
 class IndexView(generic.TemplateView):
@@ -73,7 +86,6 @@ def report_upload_view(request):
         form = ReportForm()
     return render(request, "main/report_upload.html", {"form": form})
 
-
 def document_upload_view(request, report_id):
     if request.method == "POST":
         form = DocumentForm(request.POST, request.FILES)
@@ -90,11 +102,33 @@ def document_upload_view(request, report_id):
         form = DocumentForm()
     return render(request, "main/document_upload.html", {"form": form})
 
-
 def user_reports(request):
     # Assuming you want to display reports for the logged-in user
     reports = Report.objects.filter(user=request.user) #come back later
     context = {'reports': reports}
     return render(request, 'main/myreports.html', context)
 
+# This function is used to update the is_in_review field of a report when clicked
+@csrf_exempt
+def update_report(request):
+    report_id = request.POST.get('report_id')
+    if request.method == 'POST':
+        report = Report.objects.get(id=report_id)
+        report.is_in_review = True  
+        report.save()
+        return JsonResponse({"status": "success"})
+    else:
+        return JsonResponse({"status": "error"})
 
+@login_required(login_url="/accounts/login/")
+def admin_notes(request, report_id):
+    report = Report.objects.get(id=report_id)
+    if request.method == "POST":
+        form = ResolveMessageForm(request.POST)
+        if form.is_valid():
+            report.admin_notes = form.cleaned_data["admin_notes"]
+            report.save()
+            return redirect("main:index")
+    else:
+        form = ResolveMessageForm()
+    return render(request, "main/admin_notes.html", {"form": form, "report": report})

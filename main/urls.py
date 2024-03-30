@@ -16,4 +16,5 @@ urlpatterns = [
     ),
     path('my-reports/', views.user_reports, name='mysnitches'),
     path('admin-notes/', views.admin_notes, name='admin-notes'),
+    path('update_report/', views.update_report, name='update_report'),
 ]

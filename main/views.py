@@ -2,12 +2,13 @@ from django.shortcuts import redirect, render
 from django.views import generic
 from main.models import CustomUser, Document, Report
 from django.contrib.auth import logout
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from main.forms import ReportForm, DocumentForm, ResolveMessageForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from main.models import Report
+from django.views.decorators.csrf import csrf_exempt
 from main.s3_utils import get_s3_presigned_url
 from .models import Event
 import requests
@@ -106,6 +107,18 @@ def user_reports(request):
     reports = Report.objects.filter(user=request.user) #come back later
     context = {'reports': reports}
     return render(request, 'main/myreports.html', context)
+
+# This function is used to update the is_in_review field of a report when clicked
+@csrf_exempt
+def update_report(request):
+    report_id = request.POST.get('report_id')
+    if request.method == 'POST':
+        report = Report.objects.get(id=report_id)
+        report.is_in_review = True  
+        report.save()
+        return JsonResponse({"status": "success"})
+    else:
+        return JsonResponse({"status": "error"})
 
 @login_required(login_url="/accounts/login/")
 def admin_notes(request, report_id):

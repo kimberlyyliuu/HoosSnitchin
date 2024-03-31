@@ -6,6 +6,7 @@
 
 from allauth.account.forms import SignupForm
 from main.models import Report
+from main.models import Event
 from django import forms
 
 
@@ -20,6 +21,10 @@ class CustomSignupForm(SignupForm):
         user.save()
         return user
 
+class EventForm(forms.ModelForm):
+    class Meta:
+        model = Event
+        fields = ["title", "description"]
 
 class ReportForm(forms.ModelForm):
     class Meta:

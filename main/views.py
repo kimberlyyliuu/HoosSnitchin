@@ -4,7 +4,7 @@ from main.models import CustomUser, Document, Report
 from django.contrib.auth import logout
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
-from main.forms import ReportForm, DocumentForm, ResolveMessageForm
+from main.forms import ReportForm, DocumentForm, ResolveMessageForm, EventForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from main.models import Report
@@ -34,6 +34,8 @@ def admin_view(request):
 
     if request.method == "POST":
         form = ResolveMessageForm(request.POST, request.FILES)
+        event_form = EventForm(request.POST)
+        
         if form.is_valid():
             notes = form.cleaned_data["admin_notes"]
             curr_report = Report.objects.get(id=request.POST.get("form_id"))
@@ -41,9 +43,13 @@ def admin_view(request):
             curr_report.is_in_review = False
             curr_report.is_resolved = True
             curr_report.save()
+
+        if event_form.is_valid():
+            event_form.save()
     else:
         form = ResolveMessageForm()
-    return render(request, "main/admin-view.html", {"reports": reports, "form":form})
+        event_form = EventForm()
+    return render(request, "main/admin-view.html", {"reports": reports, "form":form,"event_form": event_form})
 
 
 class IndexView(generic.TemplateView):

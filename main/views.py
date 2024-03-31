@@ -11,6 +11,8 @@ from main.models import Report
 from django.views.decorators.csrf import csrf_exempt
 from main.s3_utils import get_s3_presigned_url
 from .models import Event
+from django.views.generic import TemplateView
+from .models import CustomUser, Event
 import requests
 
 
@@ -50,12 +52,12 @@ class IndexView(generic.TemplateView):
     template_name = "main/index.html"
 
     def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["events"] = Event.objects.all()
         if self.request.user.is_authenticated:
-            context = super().get_context_data(**kwargs)
             context["user"] = CustomUser.objects.get(username=self.request.user)
-            return context
-        else:
-            return super().get_context_data(**kwargs)
+        return context
+
 
 def eventView(request):
     events = Event.objects.all()

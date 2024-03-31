@@ -1,12 +1,31 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 {% include 'header.html' %}
-  <head>
+<head>
+    <meta charset="UTF-8">
     <title>Homepage</title>
     <link rel="stylesheet" href="{% static 'main/index.css' %}" />
-  </head>
-  <body>
+</head>
+<body>
+    <!-- Events Section Start -->
+    <div class="Events_Title"><h4>Events</h4></div>
+    <ul>
+    {% for event in events %}
+        <div class="event">
+            {{ event.title }}
+            <ul>
+                <li>Description: {{ event.description }}</li>
+            </ul>
+            Login to
+            <button onclick="window.location.href='/report/';">File A Report</button>
+            or
+            <button onclick="window.location.href='/report/';">File A Report Anonymously</button>
+        </div>
+    {% endfor %}
+    </ul>
+
+
     {% if user.is_authenticated %}
     <h3>Welcome, {{ user.first_name }} {{ user.last_name }}</h3>
     {% if user.is_site_admin %}
@@ -16,30 +35,18 @@
     <p>You are not an admin!</p>
     {% endif %}
     <br />
+        
+    
+    <!-- Events Section End -->
 
-
-    <h4>Events</h4>
-    <ul>
-      {% for event in events %}
-      <li>
-        {{ event.title }} - {{ event.description }}
-        <button onclick="window.location.href='/report/';">File A Report</button>
-      </li>
-      {% endfor %}
-    </ul>
-
-    <button onclick="window.location.href='/report/';">File A Report</button>
-    <br />
     {% else %}
     <h1>You should log in!</h1>
     <button onclick="window.location.href='/accounts/login/';">Login</button>
-
     <br />
     or
     <br />
     <button onclick="window.location.href='/report/';" id="report">File A Report Anonymously</button>
     {% endif %}
-  </body>
+</body>
 {% include 'footer.html' %}
 </html>
-

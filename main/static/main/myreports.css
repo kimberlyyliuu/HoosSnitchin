@@ -1,0 +1,57 @@
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+/* Report list item styling */
+li {
+    position: relative;
+    background: #fff;
+    margin: 15px auto;
+    padding: 15px;
+    max-width: 800px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border: 1px solid #ddd;
+}
+
+.report-description{
+    color: #FFDC86;
+    font-style: italic;
+}
+
+.no-doc-avail{
+        color: #999;
+        font-style: italic;
+}
+
+/* Status styling */
+.status {
+    position: absolute; /* Changed from display: inline-block; */
+    top: 15px; /* Same as padding of li to align with the top */
+    right: 15px; /* Same as padding of li to align with the right */
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.status-in-review {
+    background-color: #f0ad4e;
+    color: white;
+}
+
+.status-resolved {
+    background-color: #5cb85c;
+    color: white;
+}
+
+.status-pending {
+    background-color: #d9534f;
+    color: white;
+}
+
+.admin-notes{
+    background: #dff0d8;
+    padding: 10px;
+    border-left: 4px solid #5cb85c;
+    margin-top: 10px;
+}

@@ -7,6 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'main/myreports.css' %}" />
     <link rel="stylesheet" href="{% static 'main/style.css' %}" />
     <title>User Reports</title>
 </head>
@@ -17,16 +18,17 @@
         {% for report in reports %}
             <li>
                 <h2>{{ report.event.title }}</h2>
-                <p>{{ report.description }}</p>
                 <p>Date: {{ report.date_time }}</p>
-
+                <p>Description:</p><p class="report-description">{{ report.description }}</p>
+                
+            
                 <!--For Status of Report-->
                 {% if report.is_in_review %}
-                    <p>Status: Report is in review by an admin.</p>
+                    <p class="status status-in-review">Status: Report is in review by an admin.</p>
                 {% elif report.is_resolved %}
-                    <p>Status: Report is resolved by an admin.</p>
+                    <p class="status status-resolved">Status: Report is resolved by an admin.</p>
                 {% else %}
-                    <p>Status: Report is pending.</p>
+                    <p class="status status-pending">Status: Report is pending.</p>
                 {% endif %}
 
                 {% if report.document.all %}
@@ -37,12 +39,12 @@
                         {% endfor %}
                     </ul>
                 {% else %}
-                    <p>No documents available.</p>
+                    <p class="no-doc-avail">No documents available.</p>
                 {% endif %}
                 
                 <!--For Message from Admin-->
                 {% if report.admin_notes %}
-                    <p>Admin Notes: {{ report.admin_notes }}</p>
+                    <p class="admin-notes">Admin Notes: {{ report.admin_notes }}</p>
                 {% else %}
                     <p>Admin have not made a message.</p>
                 {% endif %}

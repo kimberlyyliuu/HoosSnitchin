@@ -28,3 +28,12 @@ footer {
     box-sizing: border-box; /* Ensures padding does not add to the set width */
 
 }
+
+footer a {
+  color: #ffffff; /* White text color for links */
+  text-decoration: none; /* removes underline from links */
+}
+
+footer a:hover {
+  text-decoration: underline; /* adds underline on hover for better user experience */
+}

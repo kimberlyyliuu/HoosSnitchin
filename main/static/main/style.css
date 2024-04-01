@@ -4,22 +4,5 @@ body {
     color: #ffc435
       }
 
-.report-button {
-    color:white;
-    background-color: #f83213;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-.report-button:hover {
-    background-color: #f83213;
-    transform: scale(1.1);
-}
-
-.report-button:active {
-  background-color: #004299;
-  transform: translateY(2px);
-}
 
 

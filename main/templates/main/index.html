@@ -26,15 +26,12 @@
 
     <!-- Events Section Start -->
     <div class="Events_Title"><h4>Events</h4></div>
-    <ul>
     {% for event in events %}
         <div class="event">
-            <div class = 'eventname'>
-                {{ event.title }}
-            </div>
-            <ul>
-                <li>Description: {{ event.description }}</li>
-            </ul>
+            <div class="event-content">
+            <div class="eventname">{{ event.title }}</div>
+            <div class="event-description">Description: {{ event.description }}</div>
+        </div>
             {%  if user.is_authenticated %}
             <button class="report-button" onclick="window.location.href='/report/';">File A Report</button>
             {% else %}
@@ -42,7 +39,7 @@
             {% endif %}
         </div>
     {% endfor %}
-    </ul>
+    
 
 </body>
 {% include 'footer.html' %}

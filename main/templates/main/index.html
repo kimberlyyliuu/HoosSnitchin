@@ -29,14 +29,16 @@
     <ul>
     {% for event in events %}
         <div class="event">
-            {{ event.title }}
+            <div class = 'eventname'>
+                {{ event.title }}
+            </div>
             <ul>
                 <li>Description: {{ event.description }}</li>
             </ul>
             {%  if user.is_authenticated %}
-            <button onclick="window.location.href='/report/';">File A Report</button>
+            <button class="report-button" onclick="window.location.href='/report/';">File A Report</button>
             {% else %}
-            <button onclick="window.location.href='/report/';">File A Report Anonymously</button>
+            <button class="report-button" onclick="window.location.href='/report/';">File A Report Anonymously</button>
             {% endif %}
         </div>
     {% endfor %}

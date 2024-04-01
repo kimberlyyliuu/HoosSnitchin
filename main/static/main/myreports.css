@@ -16,7 +16,7 @@ li {
 }
 
 .report-description{
-    color: #FFDC86;
+    color: #ffda7d;
     font-style: italic;
 }
 
@@ -53,5 +53,11 @@ li {
     background: #dff0d8;
     padding: 10px;
     border-left: 4px solid #5cb85c;
+    margin-top: 10px;
+}
+.admin-no-notes{
+    background: #f6ebcf;
+    padding: 10px;
+    border-left: 4px solid ;
     margin-top: 10px;
 }

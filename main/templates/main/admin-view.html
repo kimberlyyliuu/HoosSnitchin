@@ -15,9 +15,17 @@
     <h1>Admin Dashboard</h1>
 <div class="box">
     <h2>Create Event</h2>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     <form method="POST">
         {% csrf_token %} {{ event_form.as_p }}
         <button type="submit" name="upload_button">Upload</button>
+
     </form>
 </div>
 

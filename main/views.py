@@ -15,7 +15,7 @@ from django.views.generic import TemplateView
 from .models import CustomUser, Event
 import requests
 from .forms import EventForm  # Assuming you have an EventForm form class
-
+from django.contrib import messages
 
 
 @login_required(login_url="/accounts/login/")
@@ -49,7 +49,10 @@ def admin_view(request):
             curr_report.save()
 
         if event_form.is_valid():
+            messages.success(request, 'Event created successfully')
             event_form.save()
+            event_form=EventForm()
+            
     else:
         form = ResolveMessageForm()
         event_form = EventForm()

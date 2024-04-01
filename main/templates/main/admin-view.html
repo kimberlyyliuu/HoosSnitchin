@@ -8,18 +8,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'main/styles.css' %}" />
+      <link rel="stylesheet" href="{% static 'main/style.css' %}" />
     <title>Admin Dashboard</title>
   </head>
   <body>
     <h1>Admin Dashboard</h1>
-    <div class="box">
-      <h2>Create Event</h2>
-      <form method="POST">
+<div class="box">
+    <h2>Create Event</h2>
+    <form method="POST">
         {% csrf_token %} {{ event_form.as_p }}
-        <button type="submit">Upload</button>
+        <button type="submit" name="upload_button">Upload</button>
+    </form>
+</div>
 
-      </form>
-    </div>
     <div class="box">
       <h2>Reports</h2>
       {% for report in reports %}

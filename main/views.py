@@ -14,6 +14,8 @@ from .models import Event
 from django.views.generic import TemplateView
 from .models import CustomUser, Event
 import requests
+from .forms import EventForm  # Assuming you have an EventForm form class
+
 
 
 @login_required(login_url="/accounts/login/")
@@ -140,3 +142,24 @@ def admin_notes(request, report_id):
     else:
         form = ResolveMessageForm()
     return render(request, "main/admin_notes.html", {"form": form, "report": report})
+
+
+def create_event(request):
+    # Initialize your form
+    event_form = EventForm()
+
+    if request.method == 'POST':
+        # Check if the form is submitted with the specific button
+        if 'upload_button' in request.POST:
+            event_form = EventForm(request.POST)
+            if event_form.is_valid():
+                # Process the form, e.g., save the form data
+                event_form.save()
+                # Redirect to the same page (or another page), which clears the form
+                return redirect("admin-view")  # Use the name of your URL pattern for this view
+
+        else:
+            event_form = EventForm()
+
+    # Render the form again for GET request or if the form is not valid
+    return render(request, 'main/admin-view.html', {'event_form': event_form})

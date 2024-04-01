@@ -124,7 +124,8 @@ def update_report(request):
     report_id = request.POST.get('report_id')
     if request.method == 'POST':
         report = Report.objects.get(id=report_id)
-        report.is_in_review = True  
+        if not report.is_resolved:
+            report.is_in_review = True
         report.save()
         return JsonResponse({"status": "success"})
     else:

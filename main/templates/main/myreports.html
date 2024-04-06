@@ -48,6 +48,11 @@
                 {% else %}
                     <p class="admin-no-notes">Admin has not made a message.</p>
                 {% endif %}
+
+                <!--for deleting report-->
+                <form action="{% url 'main:delete_report' report.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="delete-report">Delete Report</button>
             </li>
         {% endfor %}
         </ul>

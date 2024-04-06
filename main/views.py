@@ -167,3 +167,12 @@ def create_event(request):
 
     # Render the form again for GET request or if the form is not valid
     return render(request, 'main/admin-view.html', {'event_form': event_form})
+
+def delete_report(request, report_id):
+    if request.method == 'POST':
+        report = Report.objects.get(id=report_id)
+        report.delete()
+
+        reports = Report.objects.filter(user=request.user)
+        context = {'reports': reports}
+        return render(request, 'main/myreports.html', context)

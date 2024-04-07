@@ -1,0 +1,43 @@
+{% load i18n %}
+{% load allauth account %}
+{% load static %}
+{% include 'main/header.html' %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Signup</title>
+        <link rel="stylesheet" href="{% static 'main/global.css' %}" />
+        <link rel="stylesheet" href="{% static 'main/signup.css' %}" />
+    </head>
+    <body>
+        <div class="signup-center">
+            <div class="signup-wrapper">
+                {% url 'account_signup' as signup_url %}
+                {% element form form=form method="post" action=signup_url tags="entrance,signup" %}
+                    {% slot body %}
+                        {% csrf_token %}
+                        {% element fields form=form unlabeled=True %}
+                        {% endelement %}
+                        {% if redirect_field_value %}
+                            <input type="hidden"
+                                   name="{{ redirect_field_name }}"
+                                   value="{{ redirect_field_value }}" />
+                        {% endif %}
+                    {% endslot %}
+                    {% slot actions %}
+                        <button type="submit" class="signup-submit-button">
+                            {% trans "Sign Up" %}
+                        </button>
+                    {% endslot %}
+                {% endelement %}
+                <!-- navigate to accounts/signup -->
+                <a href="/accounts/login">Sign In</a>
+                {% if SOCIALACCOUNT_ENABLED %}
+                    {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+                {% endif %}
+            </div>
+        </div>
+    </body>
+</html>
+{% include 'main/footer.html' %}

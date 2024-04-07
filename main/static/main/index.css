@@ -1,0 +1,101 @@
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.top-view {
+  /* set background image with fade-out effect */
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 1)
+    ),
+    url("uva-sunset.jpg");
+  height: 40rem;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0rem 15%;
+}
+
+.top-view h2,
+.top-view p {
+  /* Initial state */
+  opacity: 0;
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+.top-view h2 {
+  animation-delay: 0.5s;
+  color: var(--cream);
+  font-size: 3rem;
+  text-align: center;
+}
+
+.top-view p {
+  animation-delay: 0.75s;
+  color: var(--cream);
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.events-title {
+  text-align: center;
+  margin: 1rem 0;
+  font-size: 3.5rem;
+}
+
+.events-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem 15%;
+}
+
+.event {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid var(--charcoal);
+  border-radius: 10px;
+  padding: 2rem;
+  color: var(--charcoal);
+}
+
+.event-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.event-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.report-button {
+  background-color: var(--orange);
+  color: var(--charcoal);
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.report-button:hover {
+  background-color: var(--red);
+  color: var(--cream);
+}

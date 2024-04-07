@@ -48,9 +48,13 @@ h6 {
   --orange: #ffc435;
   --mint: #7cf3a0;
   --red: #f83212;
-  --charcoal: #333;
+  --charcoal: #131313;
 }
 
 * {
   font-family: Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: var(--cream);
 }

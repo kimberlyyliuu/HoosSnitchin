@@ -5,6 +5,21 @@ header {
   align-items: center;
   background-color: var(--charcoal);
   padding: 0.75rem;
+  border-width: 0 0 2px 0;
+  border-color: var(--mint);
+  border-style: solid;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: left;
+  }
+  50% {
+    background-position: right;
+  }
+  100% {
+    background-position: left;
+  }
 }
 
 .title {
@@ -14,11 +29,28 @@ header {
   left: 50%;
   transform: translateX(-50%);
   top: 0.5rem;
+  font-weight: bold;
+}
+
+.title strong {
+  /* Setting up the animated gradient */
+  background-image: linear-gradient(
+    to right,
+    var(--cream),
+    var(--mint),
+    var(--cream)
+  );
+  background-size: 300% auto; /* Makes sure the gradient is large enough to enable the sliding effect */
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent; /* Hides the text color, showing the gradient */
+  animation: gradient-animation 8s linear infinite; /* Adjust time as needed */
 }
 
 .nav-button {
   border: none;
   background-color: var(--mint);
+
   border-radius: 5px;
   padding: 0.35rem 0.75rem;
   font-weight: bold;

@@ -20,34 +20,34 @@
         </button>
         {% endif %}
       </div>
-      <a href="/" class="title-wrapper"><h1 class="title">HoosSnitchin</h1></a>
-      {% if user.is_authenticated %}
-        {% if user.is_site_admin %}
-        <div class="horizontal-container">
+      <a href="/" class="title-wrapper"><h1 class="title">Hoos<strong>Snitchin</strong></h1></a>
+      <div class="horizontal-container">
+        {% if user.is_authenticated %} 
+          {% if user.is_site_admin %}
+            <button
+              class="nav-button"
+              onclick="window.location.href='/admin-view/';"
+            >
+              Admin Dashboard
+            </button>
+          {% endif %}
           <button
             class="nav-button"
-            onclick="window.location.href='/admin-view/';"
+            onclick="window.location.href='/accounts/logout/';"
           >
-            Admin Dashboard
+            Logout
+          </button>
+          <p class="username">Username: <strong>{{ user.username }}</strong></p>
+        </div>
+        {% else %}
+          <button
+            class="nav-button"
+            onclick="window.location.href='/accounts/login/';"
+          >
+            Login
           </button>
         {% endif %}
-      <div class="horizontal-container">
-        <button
-          class="nav-button"
-          onclick="window.location.href='/accounts/logout/';"
-        >
-          Logout
-        </button>
-        <p class="username">Username: <strong>{{ user.username }}</strong></p>
       </div>
-      {% else %}
-      <button
-        class="nav-button"
-        onclick="window.location.href='/accounts/login/';"
-      >
-        Login
-      </button>
-      {% endif %}
     </header>
   </body>
 </html>

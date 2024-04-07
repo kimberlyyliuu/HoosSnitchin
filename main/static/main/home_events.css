@@ -1,71 +1,75 @@
-h1, h2, h3, h4, h5, h6, p, a {
-            font-family: Helvetica, Arial, sans-serif;
-        }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a {
+  font-family: Helvetica, Arial, sans-serif;
+}
 
-        .report-button {
-            color:white;
-            background-color: #f83213;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            transition: background-color 0.3s, transform 0.2s;
-            padding: 10px 15px;
-            margin-left: auto;
-        }
+.report-button {
+  color: white;
+  background-color: #f83213;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, transform 0.2s;
+  padding: 10px 15px;
+  margin-left: auto;
+}
 
-        .report-button:hover {
-            background-color: #f83213;
-            transform: scale(1.1);
-        }
+.report-button:hover {
+  background-color: #f83213;
+  transform: scale(1.1);
+}
 
-        .report-button:active {
-          background-color: #004299;
-          transform: translateY(2px);
-        }
+.report-button:active {
+  background-color: #004299;
+  transform: translateY(2px);
+}
 
+.event {
+  border: 1px solid #ddd; /* Lighter border color */
+  background: #fff; /* White background for the event */
+  padding: 15px;
+  margin: 15px auto; /* Center align the event cards */
+  max-width: 800px; /* Max width for the event cards */
+  border-radius: 8px; /* Rounded corners for the event cards */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  display: flex; /* Set the .event class to be a flex container */
+  flex-direction: row; /* Align items in a row */
+  align-items: center; /* Center-align items vertically */
+  justify-content: space-between; /* This will place any child elements on opposite ends */
+}
 
-        .event {
-            border: 1px solid #ddd; /* Lighter border color */
-            background: #fff; /* White background for the event */
-            padding: 15px;
-            margin: 15px auto; /* Center align the event cards */
-            max-width: 800px; /* Max width for the event cards */
-            border-radius: 8px; /* Rounded corners for the event cards */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Soft shadow for depth */
-              display: flex; /* Set the .event class to be a flex container */
-            flex-direction: row; /* Align items in a row */
-            align-items: center; /* Center-align items vertically */
-             justify-content: space-between; /* This will place any child elements on opposite ends */
-        }
+.event h3 {
+  color: #333; /* Dark text color for the event title */
+  margin: 0; /* Remove default margin */
+  text-align: center;
+}
 
-        .event h3 {
-            color: #333; /* Dark text color for the event title */
-            margin: 0; /* Remove default margin */
-            text-align:center;
-        }
+.Events_Title {
+  text-align: center; /* This will center the text of the h4 element */
+  width: 100%; /* Ensure the container takes the full width */
+  margin: 0 auto; /* This will center the container itself if it has a set width */
+}
 
-        .Events_Title {
-            text-align: center; /* This will center the text of the h4 element */
-            width: 100%; /* Ensure the container takes the full width */
-            margin: 0 auto; /* This will center the container itself if it has a set width */
-        }
+.Events_Title h4 {
+  background: #333; /* Dark background for contrast */
+  color: #ffffff; /* White text for the title */
+  padding: 10px;
+  border-radius: 8px; /* Rounded corners for the title */
+  display: inline-block; /* To enable padding and background */
+  margin: 20px auto; /* Center align the title */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
 
-        .Events_Title h4 {
-            background: #333; /* Dark background for contrast */
-            color: #ffffff; /* White text for the title */
-            padding: 10px;
-            border-radius: 8px; /* Rounded corners for the title */
-            display: inline-block; /* To enable padding and background */
-            margin: 20px auto; /* Center align the title */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Soft shadow for depth */
-        }
+.eventname {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
 
-
-        .eventname{
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .event-description{
-            color: #FFDC86
-
-        }
+.event-description {
+  color: #ffdc86;
+}

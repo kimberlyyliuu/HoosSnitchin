@@ -30,7 +30,7 @@ SECRET_KEY = "django-insecure-c+xgd_ire-)+-uf1#=6y1678n5j6qs2h%dm1b*5zu*!zuncv3-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("STATUS") != "prod"  # HEROKU Environment Var -> STATUS = prod
 
-ALLOWED_HOSTS = [".herokuapp.com", "localhost","127.0.0.1"]  # herokuapp.com for Heroku
+ALLOWED_HOSTS = [".herokuapp.com", "localhost", "127.0.0.1"]  # herokuapp.com for Heroku
 
 
 # Application definition
@@ -155,10 +155,17 @@ LOGIN_REDIRECT_URL = "/"
 SITE_ID = 1
 # Set up under Ryland's Email
 SOCIALACCOUNT_PROVIDERS = {
+    # "google": {
+    #     "APP": {
+    #         "client_id": os.environ.get("GOOGLE_AUTH_CLIENT_ID"),
+    #         "secret": os.environ.get("GOOGLE_AUTH_CLIENT_SECRET"),
+    #         "key": "",
+    #     }
+    # }
     "google": {
         "APP": {
-            "client_id": os.environ.get("GOOGLE_AUTH_CLIENT_ID"),
-            "secret": os.environ.get("GOOGLE_AUTH_CLIENT_SECRET"),
+            "client_id": "428903485592-lbrrbl2mp3lmtoe6s79apvc8h8927ob2.apps.googleusercontent.com",
+            "secret": "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",
             "key": "",
         }
     }
@@ -182,10 +189,14 @@ EMAIL_BACKEND = "django.core.mail.backends.dummy.EmailBackend"
 # vvv S3 (Amazon Web Services) vvv
 INSTALLED_APPS += ["storages"]
 
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
-AWS_S3_REGION_NAME = os.environ.get("AWS_S3_REGION_NAME")
+# AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+# AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+# AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
+# AWS_S3_REGION_NAME = os.environ.get("AWS_S3_REGION_NAME")
+AWS_ACCESS_KEY_ID = "AKIAVVXPHRQBCYUBFKNG"
+AWS_SECRET_ACCESS_KEY = "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"
+AWS_STORAGE_BUCKET_NAME = "uva-cs3240-group-a-24"
+AWS_S3_REGION_NAME = "us-east-1"
 
 AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
 AWS_S3_FILE_OVERWRITE = False

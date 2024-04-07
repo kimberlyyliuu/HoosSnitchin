@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="{% static 'main/global.css' %}" />
+    <link rel="stylesheet" href="{% static 'main/header.css' %}" />
+  </head>
+  <body>
+    <header>
+      <div class="horizontal-container">
+        <button class="nav-button" onclick="window.location.href='/';">
+          Home
+        </button>
+        {% if user.is_authenticated %}
+        <button
+          class="nav-button"
+          onclick="window.location.href='/my-reports/';"
+        >
+          My Reports
+        </button>
+        {% endif %}
+      </div>
+      <a href="/" class="title-wrapper"><h1 class="title">HoosSnitchin</h1></a>
+      {% if user.is_authenticated %}
+        {% if user.is_site_admin %}
+        <div class="horizontal-container">
+          <button
+            class="nav-button"
+            onclick="window.location.href='/admin-view/';"
+          >
+            Admin Dashboard
+          </button>
+        {% endif %}
+      <div class="horizontal-container">
+        <button
+          class="nav-button"
+          onclick="window.location.href='/accounts/logout/';"
+        >
+          Logout
+        </button>
+        <p class="username">Username: <strong>{{ user.username }}</strong></p>
+      </div>
+      {% else %}
+      <button
+        class="nav-button"
+        onclick="window.location.href='/accounts/login/';"
+      >
+        Login
+      </button>
+      {% endif %}
+    </header>
+  </body>
+</html>

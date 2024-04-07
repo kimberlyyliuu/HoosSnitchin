@@ -1,61 +1,47 @@
- body, h1 {
-        font-family: Helvetica, Arial, sans-serif;
-      }
-      header {
-        text-align: center;
-        color: #6495ED;
-        padding: 5px;
-        cursor: pointer;
-      }
-      .username {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 20px;
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--charcoal);
+  padding: 0.75rem;
+}
 
-    }
+.title {
+  color: var(--cream);
+  text-decoration: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0.5rem;
+}
 
+.nav-button {
+  border: none;
+  background-color: var(--mint);
+  border-radius: 5px;
+  padding: 0.35rem 0.75rem;
+  font-weight: bold;
+  color: var(--charcoal);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
 
-    .login-container{
-        position: absolute;
-        top: 10px;
-        right: 10px;
-    }
+.nav-button:hover {
+  background-color: var(--orange);
+  /* color: var(--cream); */
+}
 
-    .logout-container{
-        position: absolute;
-        top: 40px;
-        right: 10px;
-    }
-    .vieweventbutton, .logoutbutton, .loginbutton, .myreportsbutton{
-          padding: 10px 15px;
-          margin: 5px;
-          background-color: #5ADA80;
-          color: white;
-          border: none;
-          border-radius: 5px;
-          font-family: 'Helvetica Neue', sans-serif;
-          font-size: 16px;
-          font-weight: bold;
-          text-transform: uppercase;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-          cursor: pointer;
-          display: inline-block; /* Or 'block' if you want it to take up the full width */
-          transition: background-color 0.3s ease;
-        }
+.horizontal-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
 
-    .vieweventbutton:hover, .logoutbutton:hover, .loginbutton:hover, myreportsbutton:hover{
-        background-color: #2980b9;
-    }
-
-    .vieweventbutton:active, .logoutbutton:active, .loginbutton:active {
-        background-color: #1b608c;
-        box-shadow: none;
-        }
-
-
-    .event-container {
-        position: absolute;
-        top: 10px;
-        left: 10px;  /* Other styles */
-    }
+.horizontal-container p {
+  color: var(--cream);
+  font-size: 1.2rem;
+}

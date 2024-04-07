@@ -2,46 +2,47 @@
 <!DOCTYPE html>
 {% include 'main/header.html'%}
 <html lang="en">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src='{% static 'main/reports_show.js' %}'></script>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'main/styles.css' %}" />
-      <link rel="stylesheet" href="{% static 'main/style.css' %}" />
     <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{% static 'main/global.css' %}" />
+    <link rel="stylesheet" href="{% static 'main/admin-view.css' %}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src='{% static 'main/reports_show.js' %}'></script>
   </head>
   <body>
-    <h1>Admin Dashboard</h1>
-<div class="box">
-    <h2>Create Event</h2>
-    {% if messages %}
-    <ul class="messages">
+    <h1 class="admin-title">Admin Dashboard</h1>
+    <div class="box">
+      <h2>Create Event</h2>
+      {% if messages %}
+      <ul class="messages">
         {% for message in messages %}
-        <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+        <li {% if message.tags %} class=" {{ message.tags }} " {% endif %}>
+          {{ message }}
+        </li>
         {% endfor %}
-    </ul>
-    {% endif %}
-    <form method="POST">
+      </ul>
+      {% endif %}
+      <form method="POST">
         {% csrf_token %} {{ event_form.as_p }}
         <button type="submit" name="upload_button">Upload</button>
-
-    </form>
-</div>
+      </form>
+    </div>
 
     <div class="box">
       <h2>Reports</h2>
       {% for report in reports %}
 
-      <button class="reports" onclick="reports_show({{ report.id }})" >Report: {{ report.description }}</button>
+      <button class="reports" onclick="reports_show({{ report.id }})">
+        Report: {{ report.description }}
+      </button>
 
       <div class="report-card" id="{{ report.id }}">
         {% if report.is_in_review %}
-            <p class="report-text">Status: In Review</p>
+        <p class="report-text">Status: In Review</p>
         {% elif report.is_resolved %}
-            <p class="report-text">Status: Resolved</p>
+        <p class="report-text">Status: Resolved</p>
         {% else %}
-            <p class="report-text">Status: Not Reviewed</p>
+        <p class="report-text">Status: Not Reviewed</p>
         {% endif %}
         <p class="report-text">When: {{ report.date_time }}</p>
         <p class="report-text">Where: {{ report.event }}</p>
@@ -89,13 +90,13 @@
           {% endfor %}
         </div>
         <form method="POST">
-            {% csrf_token %} {{ form.as_p }}
-            <input type="hidden" name="form_id" value="{{ report.id }}">
-            <button type="submit">Resolve</button>
+          {% csrf_token %} {{ form.as_p }}
+          <input type="hidden" name="form_id" value="{{ report.id }}" />
+          <button type="submit">Resolve</button>
         </form>
       </div>
       {% endfor %}
     </div>
   </body>
-{% include 'main/footer.html' %}
 </html>
+{% include 'main/footer.html' %}

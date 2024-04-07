@@ -1,11 +1,11 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-{% include 'header.html' %}
+  {% include 'main/header.html' %}
   <head>
     <title>Upload Documents</title>
-       <link rel="stylesheet" href="{% static 'main/document_upload.css' %}" />
-      <link rel="stylesheet" href="{% static 'main/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'main/document_upload.css' %}" />
+    <link rel="stylesheet" href="{% static 'main/style.css' %}" />
   </head>
   <body>
     <h1>Upload Documents</h1>
@@ -16,5 +16,5 @@
     <!-- skip document upload button -->
     <a href="{% url 'main:index' %}">Skip</a>
   </body>
-{% include 'footer.html' %}
+  {% include 'main/footer.html' %}
 </html>

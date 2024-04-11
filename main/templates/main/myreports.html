@@ -53,6 +53,7 @@
                 <form action="{% url 'main:delete_report' report.id %}" method="post">
                     {% csrf_token %}
                     <button type="submit" class="delete-report">Delete Report</button>
+                </form>
             </li>
         {% endfor %}
         </ul>

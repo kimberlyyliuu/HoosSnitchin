@@ -33,7 +33,7 @@
       {% for report in reports %}
 
       <button class="reports" onclick="reports_show({{ report.id }})">
-        Report: {{ report.description }}
+        See report for {{ report.event }}: {{report.description}}
       </button>
 
       <div class="report-card" id="{{ report.id }}">

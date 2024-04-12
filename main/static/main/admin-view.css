@@ -4,6 +4,52 @@
   padding: 0.5rem 0;
 }
 
+.create-event-title{
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+.reports-title{
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+.report-resolved {
+  border: none;
+  background-color: var(--mint);
+
+  border-radius: 5px;
+  padding: 0.35rem 0.75rem;
+  font-weight: bold;
+  color: var(--charcoal);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.report-resolved:hover {
+  background-color: var(--orange);
+  /* color: var(--cream); */
+}
+
+.report-in-review  {
+  border: none;
+  background-color: var(--orange);
+
+  border-radius: 5px;
+  padding: 0.35rem 0.75rem;
+  font-weight: bold;
+  color: var(--charcoal);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.report-in-review:hover {
+  background-color: var(--red);
+  color: var(--cream);
+}
+
 .box {
   border-width: 2px;
   border-color: black;
@@ -15,6 +61,7 @@
   flex-direction: column;
   gap: 1rem;
 }
+
 
 .report-card {
   border-width: 2px;

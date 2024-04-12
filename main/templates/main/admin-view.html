@@ -12,7 +12,7 @@
   <body>
     <h1 class="admin-title">Admin Dashboard</h1>
     <div class="box">
-      <h2>Create Event</h2>
+      <h2 class="create-event-title">Create Event</h2>
       {% if messages %}
       <ul class="messages">
         {% for message in messages %}
@@ -29,12 +29,22 @@
     </div>
 
     <div class="box">
-      <h2>Reports</h2>
+      <div> 
+        <h2 class="reports-title">Reports</h2>
+      </div>
+      
       {% for report in reports %}
 
-      <button class="reports" onclick="reports_show({{ report.id }})">
-        See report for {{ report.event }}: {{report.description}}
+      {%if report.is_in_review%}
+        <button class="report-in-review" onclick="reports_show({{ report.id }})">
+          See report for <strong>{{ report.event }}</strong>: "{{ report.description }}"
+        </button>
+      {%elif report.is_resolved%}
+      <button class="report-resolved" onclick="reports_show({{ report.id }})">
+        Resolved report for <strong>{{ report.event }}</strong>: "{{ report.description }}"
       </button>
+      {%endif%}
+      
 
       <div class="report-card" id="{{ report.id }}">
         {% if report.is_in_review %}

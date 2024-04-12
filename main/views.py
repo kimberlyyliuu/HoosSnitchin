@@ -93,28 +93,28 @@ def report_upload_view(request):
             else:
                 new_report.user = request.user
             new_report.save()
-            return redirect(f"{new_report.id}/upload", {"report": new_report})
+            return redirect(f"{new_report.id}/upload", {"files": {}, "report": new_report})
     else:
         form = ReportForm()
     return render(request, "main/report_upload.html", {"form": form})
 
 
 def document_upload_view(request, report_id):
+    files = request.FILES.getlist("files")
     if request.method == "POST":
+        for file in files:
+            doc = Document.objects.create(document=file, title=file.name)
+            report = Report.objects.get(id=report_id)
+            report.document.add(doc)
         return redirect("main:index")
-    return render(request, "main/document_upload.html", {"report_id": report_id})
+    return render(request, "main/document_upload.html", {"files": files, "report_id": report_id})
 
 
 @csrf_exempt
 def document_upload(request):
     if request.method == 'POST':
-        file = request.FILES.get('file')
         report_id = request.POST.get('report_id')
-        doc = Document.objects.create(document=file, title=file.name)
-        report = Report.objects.get(id=report_id)
-        report.document.add(doc)
-        all_docs = report.document.all()
-        return render(request, "main/document_upload.html", {"files": all_docs, "report_id": report_id})
+        return document_upload_view(request, report_id)
     return JsonResponse({"status": "error"})
 
 

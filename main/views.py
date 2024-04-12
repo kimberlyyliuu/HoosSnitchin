@@ -17,7 +17,6 @@ import requests
 from .forms import EventForm  # Assuming you have an EventForm form class
 from django.contrib import messages
 
-
 @login_required(login_url="/accounts/login/")
 def admin_view(request):
     if not request.user.is_site_admin:
@@ -39,7 +38,7 @@ def admin_view(request):
     if request.method == "POST":
         form = ResolveMessageForm(request.POST, request.FILES)
         event_form = EventForm(request.POST)
-        
+
         if form.is_valid():
             notes = form.cleaned_data["admin_notes"]
             curr_report = Report.objects.get(id=request.POST.get("form_id"))
@@ -51,12 +50,12 @@ def admin_view(request):
         if event_form.is_valid():
             messages.success(request, 'Event created successfully')
             event_form.save()
-            event_form=EventForm()
-            
+            event_form = EventForm()
+
     else:
         form = ResolveMessageForm()
         event_form = EventForm()
-    return render(request, "main/admin-view.html", {"reports": reports, "form":form,"event_form": event_form})
+    return render(request, "main/admin-view.html", {"reports": reports, "form": form, "event_form": event_form})
 
 
 class IndexView(generic.TemplateView):
@@ -99,27 +98,32 @@ def report_upload_view(request):
         form = ReportForm()
     return render(request, "main/report_upload.html", {"form": form})
 
+
 def document_upload_view(request, report_id):
     if request.method == "POST":
-        form = DocumentForm(request.POST, request.FILES)
-        if form.is_valid():
+        return redirect("main:index")
+    return render(request, "main/document_upload.html", {"report_id": report_id})
 
-            files = form.cleaned_data["file_field"]
-            for f in files:
-                doc = Document.objects.create(document=f, title=f.name)
-                report = Report.objects.get(id=report_id)
-                report.document.add(doc)
 
-            return redirect("main:index")
-    else:
-        form = DocumentForm()
-    return render(request, "main/document_upload.html", {"form": form})
+@csrf_exempt
+def document_upload(request):
+    if request.method == 'POST':
+        file = request.FILES.get('file')
+        report_id = request.POST.get('report_id')
+        doc = Document.objects.create(document=file, title=file.name)
+        report = Report.objects.get(id=report_id)
+        report.document.add(doc)
+        all_docs = report.document.all()
+        return render(request, "main/document_upload.html", {"files": all_docs, "report_id": report_id})
+    return JsonResponse({"status": "error"})
+
 
 def user_reports(request):
     # Assuming you want to display reports for the logged-in user
-    reports = Report.objects.filter(user=request.user) #come back later
+    reports = Report.objects.filter(user=request.user)  # come back later
     context = {'reports': reports}
     return render(request, 'main/myreports.html', context)
+
 
 # This function is used to update the is_in_review field of a report when clicked
 @csrf_exempt
@@ -133,6 +137,7 @@ def update_report(request):
         return JsonResponse({"status": "success"})
     else:
         return JsonResponse({"status": "error"})
+
 
 @login_required(login_url="/accounts/login/")
 def admin_notes(request, report_id):
@@ -167,6 +172,7 @@ def create_event(request):
 
     # Render the form again for GET request or if the form is not valid
     return render(request, 'main/admin-view.html', {'event_form': event_form})
+
 
 def delete_report(request, report_id):
     if request.method == 'POST':

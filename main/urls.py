@@ -14,6 +14,7 @@ urlpatterns = [
         views.document_upload_view,
         name="document_upload",
     ),
+    path("document_upload/", views.document_upload, name="document_upload"),
     path('my-reports/', views.user_reports, name='mysnitches'),
     path('admin-notes/', views.admin_notes, name='admin-notes'),
     path('update_report/', views.update_report, name='update_report'),

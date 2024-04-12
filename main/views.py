@@ -82,7 +82,7 @@ def LogoutView(request):
         return JsonResponse({"error": "Invalid request method"}, status=400)
 
 
-def report_upload_view(request):
+def report_upload_view(request, event_id):
     if request.method == "POST":
         form = ReportForm(request.POST, request.FILES)
         if form.is_valid():
@@ -93,13 +93,14 @@ def report_upload_view(request):
             else:
                 new_report.user = request.user
             new_report.save()
-            return redirect(f"{new_report.id}/upload", {"files": {}, "report": new_report})
+            return redirect(f"/report/event{event_id}/{new_report.id}/upload/", {"files": {}, "report": new_report})
     else:
         form = ReportForm()
+        form.fields["event"].initial = Event.objects.get(id=event_id)
     return render(request, "main/report_upload.html", {"form": form})
 
 
-def document_upload_view(request, report_id):
+def document_upload_view(request, report_id, event_id=-1):
     files = request.FILES.getlist("files")
     if request.method == "POST":
         for file in files:
@@ -114,7 +115,7 @@ def document_upload_view(request, report_id):
 def document_upload(request):
     if request.method == 'POST':
         report_id = request.POST.get('report_id')
-        return document_upload_view(request, report_id)
+        return document_upload_view(request, report_id=report_id)
     return JsonResponse({"status": "error"})
 
 

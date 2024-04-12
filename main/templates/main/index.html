@@ -30,11 +30,11 @@
             </div>
           </div>
           {% if user.is_authenticated %}
-          <button class="report-button" onclick="window.location.href='/report/';">
+          <button class="report-button" onclick="window.location.href='/report/event{{ event.pk }}/';">
             File A Report
           </button>
           {% else %}
-          <button class="report-button" onclick="window.location.href='/report/';">
+          <button class="report-button" onclick="window.location.href='/report/event{{ event.pk }}/';">
             File A Report Anonymously
           </button>
           {% endif %}

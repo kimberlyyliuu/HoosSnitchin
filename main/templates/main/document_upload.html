@@ -14,7 +14,6 @@
     <p id="curr_files" hidden="hidden">Uploaded Files:</p>
     <ul id="uploaded"></ul>
     <form method="POST" oninput="upload_multiple_doc({{ report_id }}, {{ files }})" enctype="multipart/form-data">
-{#        {% csrf_token %} {{ form.as_p }}#}
         {% csrf_token %}
         <button type="submit">Upload</button>
     </form>

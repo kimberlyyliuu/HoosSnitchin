@@ -32,5 +32,5 @@ function show_files(report_id){
     var filename = document.createTextNode(currFile.name)
     list.appendChild(filename)
     document.getElementById("uploaded").appendChild(list)
-    upload_multiple_doc(report_id, selector)
+    upload_multiple_doc(report_id, currFile)
 }

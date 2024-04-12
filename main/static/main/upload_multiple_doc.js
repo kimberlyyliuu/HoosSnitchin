@@ -8,9 +8,10 @@
 
 function upload_multiple_doc(report_id, files){
     var form_data = new FormData()
+    var file = document.getElementById("file")
     for(var i = 0; i < files.length; i++) //add files that were already added
         form_data.append('files', files[i])
-    form_data.append('files', $('#file')[0].files[0]) //add the new file
+    form_data.append('files', file.files[0]) //add the new file
     form_data.append('report_id', report_id)
     $.ajax({
       url: "/document_upload/",
@@ -25,9 +26,10 @@ function upload_multiple_doc(report_id, files){
 }
 function show_files(report_id){
     document.getElementById("curr_files").hidden = false
+    var file = document.getElementById("file")
     var list = document.createElement("li")
-    var selector = $('#file')[0].files[0]
-    var filename = document.createTextNode(selector.name)
+    var currFile = file.files[0]
+    var filename = document.createTextNode(currFile.name)
     list.appendChild(filename)
     document.getElementById("uploaded").appendChild(list)
     upload_multiple_doc(report_id, selector)

@@ -4,21 +4,24 @@
   {% include 'main/header.html' %}
   <head>
     <title>Upload Documents</title>
+    <link rel="stylesheet" href="{% static 'global/global.css' %}" />
     <link rel="stylesheet" href="{% static 'main/document_upload.css' %}" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src='{% static 'main/upload_multiple_doc.js' %}'></script>
+    <script src="{% static 'main/upload_multiple_doc.js' %}"></script>
   </head>
   <body>
-    <h1>Upload Documents</h1>
-    <input type="file" oninput="show_files({{ report_id }})" id="file"></input>
-    <p id="curr_files" hidden="hidden">Uploaded Files:</p>
-    <ul id="uploaded"></ul>
-    <form method="POST" oninput="upload_multiple_doc({{ report_id }}, {{ files }})" enctype="multipart/form-data">
-        {% csrf_token %}
-        <button type="submit">Upload</button>
-    </form>
-    <!-- skip document upload button -->
-    <a href="{% url 'main:index' %}">Skip</a>
+    <h2>Upload Documents</h2>
+    <div class="center-column">
+      <input type="file" oninput="show_files({{ report_id }})" id="file"></input>
+      <p id="curr_files" hidden="hidden">Uploaded Files:</p>
+      <ul id="uploaded"></ul>
+      <form method="POST" oninput="upload_multiple_doc({{ report_id }}, {{ files }})" enctype="multipart/form-data">
+          {% csrf_token %}
+          <button type="submit">Upload</button>
+      </form>
+      <!-- skip document upload button -->
+      <a href="{% url 'main:index' %}">Skip</a>
+    </div>
   </body>
   {% include 'main/footer.html' %}
 </html>

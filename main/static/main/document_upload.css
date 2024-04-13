@@ -1,3 +1,61 @@
-body, h1, form, button, a {
-    font-family: Helvetica, Arial, sans-serif;
+h2 {
+  text-align: center;
+  margin: 1rem 0;
+  font-size: 1.75rem;
+  text-decoration: underline;
+}
+
+.center-column {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 0 2rem 0;
+}
+
+.event-intro {
+  font-size: 1.2rem;
+  margin: 1rem 0;
+}
+
+.event-description {
+  font-size: 1rem;
+  margin: 1rem 0;
+}
+
+blockquote {
+  font-style: italic;
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: var(--cream);
+  border-left: 4px solid var(--orange);
+}
+
+label {
+  font-weight: bold;
+}
+
+textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+.submit-button {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: var(--mint);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submit-button p {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: var(--orange);
 }

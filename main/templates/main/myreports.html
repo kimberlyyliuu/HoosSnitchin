@@ -1,64 +1,64 @@
 <!DOCTYPE html>
-{% load static %}
-
-{% include 'main/header.html' %}
+{% load static %} {% include 'main/header.html' %}
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'global/global.css' %}" />
     <link rel="stylesheet" href="{% static 'main/myreports.css' %}" />
     <title>User Reports</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Reports for {{ request.user.username }}</h1>
     {% if reports %}
+    <ul>
+      {% for report in reports %}
+      <li>
+        <h2>{{ report.event.title }}</h2>
+        <p>Date: {{ report.date_time }}</p>
+        <p>Description:</p>
+        <p class="report-description">{{ report.description }}</p>
+
+        <!--For Status of Report-->
+        {% if report.is_in_review %}
+        <p class="status status-in-review">
+          Status: Report is in review by an admin.
+        </p>
+        {% elif report.is_resolved %}
+        <p class="status status-resolved">
+          Status: Report is resolved by an admin.
+        </p>
+        {% else %}
+        <p class="status status-pending">Status: Report is pending.</p>
+        {% endif %} {% if report.document.all %} Documents:
         <ul>
-        {% for report in reports %}
-            <li>
-                <h2>{{ report.event.title }}</h2>
-                <p>Date: {{ report.date_time }}</p>
-                <p>Description:</p><p class="report-description">{{ report.description }}</p>
-                
-            
-                <!--For Status of Report-->
-                {% if report.is_in_review %}
-                    <p class="status status-in-review">Status: Report is in review by an admin.</p>
-                {% elif report.is_resolved %}
-                    <p class="status status-resolved">Status: Report is resolved by an admin.</p>
-                {% else %}
-                    <p class="status status-pending">Status: Report is pending.</p>
-                {% endif %}
-
-                {% if report.document.all %}
-                   Documents:
-                    <ul>
-                        {% for document in report.document.all %} <!-- Iterate over each document -->
-                            <li>{{ document.title }}</li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p class="no-doc-avail">No documents available.</p>
-                {% endif %}
-                
-                <!--For Message from Admin-->
-                {% if report.admin_notes %}
-                    <p class="admin-notes">Admin Notes: {{ report.admin_notes }}</p>
-                {% else %}
-                    <p class="admin-no-notes">Admin has not made a message.</p>
-                {% endif %}
-
-                <!--for deleting report-->
-                <form action="{% url 'main:delete_report' report.id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="delete-report">Delete Report</button>
-                </form>
-            </li>
-        {% endfor %}
+          {% for document in report.document.all %}
+          <!-- Iterate over each document -->
+          <li>{{ document.title }}</li>
+          {% endfor %}
         </ul>
+        {% else %}
+        <p class="no-doc-avail">No documents available.</p>
+        {% endif %}
+
+        <!--For Message from Admin-->
+        {% if report.admin_notes %}
+        <p class="admin-notes">Admin Notes: {{ report.admin_notes }}</p>
+        {% else %}
+        <p class="admin-no-notes">Admin has not made a message.</p>
+        {% endif %}
+
+        <!--for deleting report-->
+        <form action="{% url 'main:delete_report' report.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="delete-report">Delete Report</button>
+        </form>
+      </li>
+      {% endfor %}
+    </ul>
     {% else %}
-        <p>No reports available.</p>
+    <p>No reports available.</p>
     {% endif %}
-</body>
-{%  include 'main/footer.html' %}
+  </body>
+  {% include 'main/footer.html' %}
 </html>

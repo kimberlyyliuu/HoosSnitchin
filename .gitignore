@@ -138,3 +138,6 @@ GitHub.sublime-settings
 
 # Macs Are Incredibly Stupid #
 **/.DS_Store
+
+# static files
+staticfiles/

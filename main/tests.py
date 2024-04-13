@@ -76,13 +76,15 @@ class ViewsTests(TestCase):
 
     # Test 5-2: Test the document upload view Basic
     def test_document_upload_view(self):
-        response = self.client.get("/report/1/upload")
+        event = Event.objects.create(title="Test Event", description="Test Description")
+        response = self.client.get("/report/event1/1/upload/")
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "main/document_upload.html")
 
     # Test 5-3: Test the report upload view Basic
     def test_report_upload_view(self):
-        response = self.client.get("/report/")
+        event = Event.objects.create(title="Test Event", description="Test Description")
+        response = self.client.get("/report/event1/")
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "main/report_upload.html")
 
@@ -107,14 +109,15 @@ class FormsTests(TestCase):
         event = Event.objects.create(title="Test Event", description="Test Description")
 
         response = self.client.post(
-            "/report/", {"description": "Test Report Description", "event": event.title}
+            "/report/event1/", {"description": "Test Report Description", "event": event.title}
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
         # self.assertEqual(response.context['form'].cleaned_data['description'], 'Test Report Description')
 
     # Test 6-2: Test the document form
     def test_document_form(self):
-        response = self.client.post("/report/1/upload", {"file_field": "Test Document"})
+        event = Event.objects.create(title="Test Event", description="Test Description")
+        response = self.client.post("/report/event1/1/upload/", {"files": "Test Document", "report_id": 1})
         self.assertEqual(response.status_code, 302)
         # self.assertEqual(response.context['form'].cleaned_data['file_field'], 'Test Document')
 

@@ -37,15 +37,15 @@
 
       {%if report.is_in_review%}
         <button class="report-in-review" onclick="reports_show({{ report.id }})">
-          View report for {{ report.event }} "{{ report.description|truncatechars:18}}"        
+          View report for {{ report.event }}: "{{ report.description|truncatechars:18}}"        
         </button>
       {%elif report.is_resolved%}
       <button class="report-resolved" onclick="reports_show({{ report.id }})">
-        Resolved report for {{ report.event }} "{{ report.description|truncatechars:18}}"      
+        Resolved report for {{ report.event }}: "{{ report.description|truncatechars:18}}"      
       </button>
       {%else%}
         <button class="report-never-viewed" onclick="reports_show({{ report.id }})">
-          View report for {{ report.event }} "{{ report.description|truncatechars:18}}"
+          View report for {{ report.event }}: "{{ report.description|truncatechars:18}}"
         </button>
       {%endif%}
       
@@ -59,54 +59,62 @@
         <p class="status-tag">Not Reviewed</p>
         {% endif %}
         <p class="report-event-title">{{ report.event }}</p>
-        <p class="report-text"><bold>Report:</bold> {{ report.description }}</p>
+        <p class="report-text">Report: {{ report.description }}</p>
         <p class="report-date-text">Report filed on {{ report.date_time }}</p>
-        <p class="report-section-header">Images</p>
-        <div class="report-section-wrapper">
-          {% for img in report.images %}
-          <div class="report-image" style="background-image: url('{{ img }}')">
-            <div
-              class="report-download"
-              onclick="window.location.href='{{ img }}'"
-            >
-              Download
+        {%if report.images%}
+          <p class="report-section-header">Images</p>
+          <div class="report-section-wrapper">
+            {% for img in report.images %}
+            <div class="report-image" style="background-image: url('{{ img }}')">
+              <div
+                class="report-download"
+                onclick="window.location.href='{{ img }}'"
+              >
+                Download
+              </div>
             </div>
+            {% endfor %}
           </div>
-          {% endfor %}
-        </div>
-        <p class="report-section-header">Text Uploads</p>
+        {%endif%}
+        {%if report.txts%}
+          <p class="report-section-header">Text Uploads</p>
 
-        <div class="report-section-wrapper">
-          {% for txt in report.txts %}
-          <div class="report-iframe-wrapper">
-            <iframe class="report-iframe" src="{{ txt }}"> </iframe>
-            <div
-              class="report-download"
-              onclick="window.location.href='{{ txt }}'"
-            >
-              Download
+          <div class="report-section-wrapper">
+            {% for txt in report.txts %}
+            <div class="report-iframe-wrapper">
+              <iframe class="report-iframe" src="{{ txt }}"> </iframe>
+              <div
+                class="report-download"
+                onclick="window.location.href='{{ txt }}'"
+              >
+                Download
+              </div>
             </div>
+            {% endfor %}
           </div>
-          {% endfor %}
-        </div>
-        <p class="report-section-header">PDF Uploads</p>
-        <div class="report-section-wrapper">
-          {% for pdf in report.pdfs %}
-          <div class="report-iframe-wrapper">
-            <iframe class="report-iframe" src="{{ pdf }}"> </iframe>
-            <div
-              class="report-download"
-              onclick="window.location.href='{{ pdf }}'"
-            >
-              Download
+        {%endif%}
+        {%if report.pdfs%}
+          <p class="report-section-header">PDF Uploads</p>
+          <div class="report-section-wrapper">
+            {% for pdf in report.pdfs %}
+            <div class="report-iframe-wrapper">
+              <iframe class="report-iframe" src="{{ pdf }}"> </iframe>
+              <div
+                class="report-download"
+                onclick="window.location.href='{{ pdf }}'"
+              >
+                Download
+              </div>
             </div>
+            {% endfor %}
           </div>
-          {% endfor %}
-        </div>
+        {%endif%}
         <form method="POST">
           {% csrf_token %} {{ form.as_p }}
           <input type="hidden" name="form_id" value="{{ report.id }}" />
-          <button type="submit">Resolve</button>
+          {%if not report.is_resolved%}
+            <button  class="resolve-button" type="submit">Resolve</button>
+          {%endif%}
         </form>
       </div>
       {% endfor %}

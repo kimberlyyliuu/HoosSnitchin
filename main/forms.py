@@ -23,7 +23,7 @@ class EventForm(forms.ModelForm):
 class ReportForm(forms.ModelForm):
     class Meta:
         model = Report
-        fields = ["description", "event"]
+        fields = ["description"]
 
 
 class ResolveMessageForm(forms.ModelForm):

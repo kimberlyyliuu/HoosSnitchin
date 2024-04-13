@@ -9,6 +9,7 @@
   </head>
   <body>
     <h1>Upload Report</h1>
+    <p>Event: {{ event.title }}</p>
     <form method="POST">
       {% csrf_token %} {{ form.as_p }}
       <button type="submit">Upload</button>

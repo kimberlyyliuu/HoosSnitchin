@@ -83,6 +83,7 @@ def LogoutView(request):
 
 
 def report_upload_view(request, event_id):
+    event = Event.objects.get(id=event_id)
     if request.method == "POST":
         form = ReportForm(request.POST, request.FILES)
         if form.is_valid():
@@ -92,12 +93,12 @@ def report_upload_view(request, event_id):
                 new_report.user = None
             else:
                 new_report.user = request.user
+            new_report.event = event
             new_report.save()
             return redirect(f"/report/event{event_id}/{new_report.id}/upload/", {"files": {}, "report": new_report})
     else:
         form = ReportForm()
-        form.fields["event"].initial = Event.objects.get(id=event_id)
-    return render(request, "main/report_upload.html", {"form": form})
+    return render(request, "main/report_upload.html", {"form": form, "event":event})
 
 
 def document_upload_view(request, report_id, event_id=-1):

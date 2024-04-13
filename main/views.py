@@ -24,11 +24,13 @@ class IndexView(generic.TemplateView):
 
 # vvvvvvvvvvvv Admin View vvvvvvvvvvvv
 @login_required(login_url="/accounts/login/")
-def admin_view(request):
+def admin_view(request, post_type="new"):
     if not request.user.is_site_admin:
         return HttpResponseForbidden(
             "You not a site admin. Please login as a site admin or request access."
         )
+    if post_type not in ["new", "in_review", "resolved"]:
+        return HttpResponseForbidden("Error: Invalid Report Type")
     reports = Report.objects.all().order_by("-is_in_review", "-date_time")
     for report in reports:
         report_docs = report.document.all()
@@ -41,10 +43,19 @@ def admin_view(request):
         report.txts = [url for url in file_urls if ".txt" in url]
         report.pdfs = [url for url in file_urls if ".pdf" in url]
 
+        # calculate report status
+        if report.is_resolved:
+            report.status = "resolved"
+        elif report.is_in_review:
+            report.status = "in_review"
+        else:
+            report.status = "new"
+
     if request.method == "POST":
         resolve_form = ResolveMessageForm(request.POST, request.FILES)
         event_form = EventForm(request.POST)
 
+        # check if either form is valid (means one of them was submitted)
         if resolve_form.is_valid():
             notes = resolve_form.cleaned_data["admin_notes"]
             curr_report = Report.objects.get(id=request.POST.get("form_id"))
@@ -52,10 +63,14 @@ def admin_view(request):
             curr_report.is_in_review = False
             curr_report.is_resolved = True
             curr_report.save()
+            # do not clear the form (so the user can see the current notes)
 
         if event_form.is_valid():
+            # messages is to display a message to the user
+            # accessed in the template with {% for message in messages %}
             messages.success(request, "Event created successfully")
             event_form.save()
+            # clear the form (so the user can submit another event)
             event_form = EventForm()
 
     else:
@@ -64,11 +79,16 @@ def admin_view(request):
     return render(
         request,
         "main/admin_view.html",
-        {"reports": reports, "resolve_form": resolve_form, "event_form": event_form},
+        {
+            "reports": reports,
+            "resolve_form": resolve_form,
+            "event_form": event_form,
+            "post_type": post_type,
+        },
     )
 
 
-# [TODO: Come back here and see what we can do to not make this javascript lol]
+# [TODO: Merge with admin_view, but still works standalone]
 @csrf_exempt
 def update_report(request):
     report_id = request.POST.get("report_id")

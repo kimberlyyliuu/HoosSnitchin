@@ -5,7 +5,7 @@ from . import views
 app_name = "main"
 urlpatterns = [
     path("", views.IndexView.as_view(), name="index"),
-    path("admin_view/", views.admin_view, name="admin_view"),
+    path("admin_view/<str:post_type>/", views.admin_view, name="admin_view"),
     path("update_report/", views.update_report, name="update_report"),
     path("report/event<int:event_id>/", views.report_upload_view, name="report_upload"),
     path(

@@ -1,123 +1,83 @@
-{% load static %}
-{% include 'main/header.html'%}
+{% load static %} {% include 'main/header.html'%}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="{% static 'global/global.css' %}" />
     <link rel="stylesheet" href="{% static 'main/admin_view.css' %}" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src='{% static 'main/reports_show.js' %}'></script>
   </head>
   <body>
-    <h1 class="admin-title">Admin Dashboard</h1>
+    <h2>Admin Dashboard</h2>
     <div class="box">
-      <h2 class="create-event-title">Create Event</h2>
-      {% if messages %}
-      <ul class="messages">
-        {% for message in messages %}
-        <li {% if message.tags %} class=" {{ message.tags }} " {% endif %}>
-          {{ message }}
-        </li>
-        {% endfor %}
-      </ul>
-      {% endif %}
+      <h3 class="section-title">Create Event</h3>
       <form method="POST">
         {% csrf_token %} {{ event_form.as_p }}
         <button type="submit" name="upload_button">Upload</button>
+        {% if messages %} {% for message in messages %}
+        <div {% if message.tags %} class="message-display" {% endif %}>
+          {{ message }}
+        </div>
+        {% endfor %} {% endif %}
       </form>
     </div>
-
     <div class="box">
-      <div> 
-        <h2 class="reports-title">Reports</h2>
+      <div class="reports-header">
+        <h3 class="section-title">Reports <em>({{post_type}})</em></h3>
+        <div class="reports-button-wrapper">
+          <button
+            class="reports-button"
+            onclick="window.location.href='/admin_view/new';"
+          >
+            New
+          </button>
+          <button class="reports-button" onclick="window.location.href='/admin_view/in_review';">
+            In Review
+          <button class="reports-button" onclick="window.location.href='/admin_view/resolved';">
+            Resolved
+        </div>
       </div>
-      
-      {% for report in reports %}
-
-      {%if report.is_in_review%}
-        <button class="report-in-review" onclick="reports_show({{ report.id }})">
-          View report for {{ report.event }}: "{{ report.description|truncatechars:18}}"        
-        </button>
-      {%elif report.is_resolved%}
-      <button class="report-resolved" onclick="reports_show({{ report.id }})">
-        Resolved report for {{ report.event }}: "{{ report.description|truncatechars:18}}"      
-      </button>
-      {%else%}
-        <button class="report-never-viewed" onclick="reports_show({{ report.id }})">
-          View report for {{ report.event }}: "{{ report.description|truncatechars:18}}"
-        </button>
-      {%endif%}
-      
-
-      <div class="report-card" id="{{ report.id }}">
-        {% if report.is_in_review %}
-        <p class="status-tag">In Review</p>
-        {% elif report.is_resolved %}
-        <p class="status-tag">Resolved</p>
-        {% else %}
-        <p class="status-tag">Not Reviewed</p>
-        {% endif %}
-        <p class="report-event-title">{{ report.event }}</p>
-        <p class="report-text">Report: {{ report.description }}</p>
-        <p class="report-date-text">Report filed on {{ report.date_time }}</p>
-        {%if report.images%}
-          <p class="report-section-header">Images</p>
-          <div class="report-section-wrapper">
-            {% for img in report.images %}
-            <div class="report-image" style="background-image: url('{{ img }}')">
-              <div
-                class="report-download"
-                onclick="window.location.href='{{ img }}'"
-              >
-                Download
+      <div class="reports-wrapper">
+        {% for report in reports %}
+            {% if report.status == post_type %}
+              <div class="report">
+                <div class="report-horizontal-bar"> 
+                  <h3>Event: {{ report.event.title }}</h3>
+                  <div>
+                    <p>Report Date: {{ report.date_time }}</p>
+                    {% if report.user.first_name and report.user.last_name %}
+                      <p>Reporter: {{ report.user.first_name }} {{ report.user.last_name }}</p>
+                    {% elif report.user %}
+                      <p>Reporter: {{ report.user }}</p>
+                    {% else %}
+                      <p>Reporter: Anonymous</p>
+                    {% endif %}
+                  </div>
+                </div>
+                <p>Report Description: {{ report.description }}</p>
+                <div class="documents-view">
+                  {% for img in report.images %}
+                    <div class="report-item" onclick="window.open('{{ img }}', '_blank');" style="background-image: url('{{ img }}');">
+                      <div class="overlay">Open Image</div>
+                    </div>
+                  {% endfor %}
+                  {% for txt in report.txts %}
+                    <div class="report-item" onclick="window.open('{{ txt }}', '_blank');">
+                      <iframe src="{{ txt }}"></iframe>
+                      <div class="overlay">Open Text</div>
+                    </div>
+                  {% endfor %}
+                  {% for pdf in report.pdfs %}
+                    <div class="report-item" onclick="window.open('{{ pdf }}', '_blank');">
+                      <iframe src="{{ pdf }}"></iframe>
+                      <div class="overlay">Open PDF</div>
+                    </div>
+                  {% endfor %}
+                </div>
+                
               </div>
-            </div>
-            {% endfor %}
-          </div>
-        {%endif%}
-        {%if report.txts%}
-          <p class="report-section-header">Text Uploads</p>
-
-          <div class="report-section-wrapper">
-            {% for txt in report.txts %}
-            <div class="report-iframe-wrapper">
-              <iframe class="report-iframe" src="{{ txt }}"> </iframe>
-              <div
-                class="report-download"
-                onclick="window.location.href='{{ txt }}'"
-              >
-                Download
-              </div>
-            </div>
-            {% endfor %}
-          </div>
-        {%endif%}
-        {%if report.pdfs%}
-          <p class="report-section-header">PDF Uploads</p>
-          <div class="report-section-wrapper">
-            {% for pdf in report.pdfs %}
-            <div class="report-iframe-wrapper">
-              <iframe class="report-iframe" src="{{ pdf }}"> </iframe>
-              <div
-                class="report-download"
-                onclick="window.location.href='{{ pdf }}'"
-              >
-                Download
-              </div>
-            </div>
-            {% endfor %}
-          </div>
-        {%endif%}
-        <form method="POST">
-          {% csrf_token %} {{ resolve_form.as_p }}
-          <input type="hidden" name="form_id" value="{{ report.id }}" />
-          {%if not report.is_resolved%}
-            <button  class="resolve-button" type="submit">Resolve</button>
-          {%endif%}
-        </form>
+          {% endif %}
+        {% endfor %}
       </div>
-      {% endfor %}
     </div>
   </body>
 </html>

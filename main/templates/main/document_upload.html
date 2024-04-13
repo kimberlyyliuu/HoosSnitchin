@@ -6,20 +6,29 @@
     <title>Upload Documents</title>
     <link rel="stylesheet" href="{% static 'global/global.css' %}" />
     <link rel="stylesheet" href="{% static 'main/document_upload.css' %}" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="{% static 'main/upload_multiple_doc.js' %}"></script>
   </head>
   <body>
     <h2>Upload Documents</h2>
     <div class="center-column">
-      <input type="file" oninput="show_files({{ report_id }})" id="file"></input>
-      <p id="curr_files" hidden="hidden">Uploaded Files:</p>
-      <ul id="uploaded"></ul>
-      <form method="POST" oninput="upload_multiple_doc({{ report_id }}, {{ files }})" enctype="multipart/form-data">
-          {% csrf_token %}
-          <button type="submit">Upload</button>
+      <p class="event-intro">
+        <strong>Thank you!</strong> Your report has been submitted. Here you can
+        optionally upload any supporting documents for your report. Please fill
+        out the form below to submit your report to event organizers.
+      </p>
+      <blockquote>
+        Tip: You can submit ".jpg", ".jpeg", ".png", ".webp", and/or ".gif"
+        files.
+      </blockquote>
+      <form
+        action="{% url 'main:document_upload' %}"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        {% csrf_token %}
+        <input type="file" name="files" multiple />
+        <input type="hidden" name="report_id" value="{{ report_id }}" />
+        <button class="submit-button" type="submit">Upload</button>
       </form>
-      <!-- skip document upload button -->
       <a href="{% url 'main:index' %}">Skip</a>
     </div>
   </body>

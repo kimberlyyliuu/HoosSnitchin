@@ -17,13 +17,14 @@ import requests
 from .forms import EventForm  # Assuming you have an EventForm form class
 from django.contrib import messages
 
+
 @login_required(login_url="/accounts/login/")
 def admin_view(request):
     if not request.user.is_site_admin:
         return HttpResponseForbidden(
             "You not a site admin. Please login as a site admin or request access."
         )
-    reports = Report.objects.all().order_by('-is_in_review','-date_time')
+    reports = Report.objects.all().order_by("-is_in_review", "-date_time")
     for report in reports:
         report_docs = report.document.all()
         file_urls = [get_s3_presigned_url(doc.document.name) for doc in report_docs]
@@ -48,14 +49,18 @@ def admin_view(request):
             curr_report.save()
 
         if event_form.is_valid():
-            messages.success(request, 'Event created successfully')
+            messages.success(request, "Event created successfully")
             event_form.save()
             event_form = EventForm()
 
     else:
         form = ResolveMessageForm()
         event_form = EventForm()
-    return render(request, "main/admin-view.html", {"reports": reports, "form": form, "event_form": event_form})
+    return render(
+        request,
+        "main/admin-view.html",
+        {"reports": reports, "form": form, "event_form": event_form},
+    )
 
 
 class IndexView(generic.TemplateView):
@@ -71,7 +76,7 @@ class IndexView(generic.TemplateView):
 
 def eventView(request):
     events = Event.objects.all()
-    return render(request, 'main/home_events.html', {'events': events})
+    return render(request, "main/home_events.html", {"events": events})
 
 
 def LogoutView(request):
@@ -88,34 +93,33 @@ def report_upload_view(request, event_id):
         form = ReportForm(request.POST, request.FILES)
         if form.is_valid():
             new_report = form.save(commit=False)
-            # Anonymous user
             if not request.user.is_authenticated:
                 new_report.user = None
             else:
                 new_report.user = request.user
             new_report.event = event
             new_report.save()
-            return redirect(f"/report/event{event_id}/{new_report.id}/upload/", {"files": {}, "report": new_report})
+            return redirect("main:document_upload", report_id=new_report.id)
     else:
         form = ReportForm()
-    return render(request, "main/report_upload.html", {"form": form, "event":event})
+    return render(request, "main/report_upload.html", {"form": form, "event": event})
 
 
-def document_upload_view(request, report_id, event_id=-1):
-    files = request.FILES.getlist("files")
+def document_upload_view(request, report_id):
     if request.method == "POST":
+        files = request.FILES.getlist("files")
         for file in files:
             doc = Document.objects.create(document=file, title=file.name)
             report = Report.objects.get(id=report_id)
             report.document.add(doc)
         return redirect("main:index")
-    return render(request, "main/document_upload.html", {"files": files, "report_id": report_id})
+    return render(request, "main/document_upload.html", {"report_id": report_id})
 
 
 @csrf_exempt
 def document_upload(request):
-    if request.method == 'POST':
-        report_id = request.POST.get('report_id')
+    if request.method == "POST":
+        report_id = request.POST.get("report_id")
         return document_upload_view(request, report_id=report_id)
     return JsonResponse({"status": "error"})
 
@@ -123,15 +127,15 @@ def document_upload(request):
 def user_reports(request):
     # Assuming you want to display reports for the logged-in user
     reports = Report.objects.filter(user=request.user)  # come back later
-    context = {'reports': reports}
-    return render(request, 'main/myreports.html', context)
+    context = {"reports": reports}
+    return render(request, "main/myreports.html", context)
 
 
 # This function is used to update the is_in_review field of a report when clicked
 @csrf_exempt
 def update_report(request):
-    report_id = request.POST.get('report_id')
-    if request.method == 'POST':
+    report_id = request.POST.get("report_id")
+    if request.method == "POST":
         report = Report.objects.get(id=report_id)
         if not report.is_resolved:
             report.is_in_review = True
@@ -159,28 +163,30 @@ def create_event(request):
     # Initialize your form
     event_form = EventForm()
 
-    if request.method == 'POST':
+    if request.method == "POST":
         # Check if the form is submitted with the specific button
-        if 'upload_button' in request.POST:
+        if "upload_button" in request.POST:
             event_form = EventForm(request.POST)
             if event_form.is_valid():
                 # Process the form, e.g., save the form data
                 event_form.save()
                 # Redirect to the same page (or another page), which clears the form
-                return redirect("admin-view")  # Use the name of your URL pattern for this view
+                return redirect(
+                    "admin-view"
+                )  # Use the name of your URL pattern for this view
 
         else:
             event_form = EventForm()
 
     # Render the form again for GET request or if the form is not valid
-    return render(request, 'main/admin-view.html', {'event_form': event_form})
+    return render(request, "main/admin-view.html", {"event_form": event_form})
 
 
 def delete_report(request, report_id):
-    if request.method == 'POST':
+    if request.method == "POST":
         report = Report.objects.get(id=report_id)
         report.delete()
 
         reports = Report.objects.filter(user=request.user)
-        context = {'reports': reports}
-        return render(request, 'main/myreports.html', context)
+        context = {"reports": reports}
+        return render(request, "main/myreports.html", context)

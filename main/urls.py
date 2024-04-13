@@ -10,13 +10,13 @@ urlpatterns = [
     path("report/event<int:event_id>/", views.report_upload_view, name="report_upload"),
     path("home_events/", views.eventView, name="home_events"),
     path(
-        "report/event<int:event_id>/<int:report_id>/upload/",
+        "report/<int:report_id>/upload/",
         views.document_upload_view,
         name="document_upload",
     ),
     path("document_upload/", views.document_upload, name="document_upload"),
-    path('my-reports/', views.user_reports, name='mysnitches'),
-    path('admin-notes/', views.admin_notes, name='admin-notes'),
-    path('update_report/', views.update_report, name='update_report'),
-    path('delete_report/<int:report_id>/', views.delete_report, name='delete_report'),
+    path("my-reports/", views.user_reports, name="mysnitches"),
+    path("admin-notes/", views.admin_notes, name="admin-notes"),
+    path("update_report/", views.update_report, name="update_report"),
+    path("delete_report/<int:report_id>/", views.delete_report, name="delete_report"),
 ]

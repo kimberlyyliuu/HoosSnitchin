@@ -49,6 +49,7 @@ textarea {
   background-color: var(--mint);
   cursor: pointer;
   transition: background-color 0.2s;
+  border-radius: 5px;
 }
 
 .submit-button p {

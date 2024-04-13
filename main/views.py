@@ -23,7 +23,7 @@ def admin_view(request):
         return HttpResponseForbidden(
             "You not a site admin. Please login as a site admin or request access."
         )
-    reports = Report.objects.all().order_by('-date_time', 'is_in_review')
+    reports = Report.objects.all().order_by('-is_in_review','-date_time')
     for report in reports:
         report_docs = report.document.all()
         file_urls = [get_s3_presigned_url(doc.document.name) for doc in report_docs]

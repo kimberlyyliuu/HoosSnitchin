@@ -28,8 +28,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage" 
 SECRET_KEY = "django-insecure-c+xgd_ire-)+-uf1#=6y1678n5j6qs2h%dm1b*5zu*!zuncv3-"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = os.environ.get("STATUS") != "prod"  # HEROKU Environment Var -> STATUS = prod
-DEBUG = True  # TODO: Change back to above (using for debugging right now)
+DEBUG = os.environ.get("STATUS") != "prod"  # HEROKU Environment Var -> STATUS = prod
 
 ALLOWED_HOSTS = [".herokuapp.com", "localhost", "127.0.0.1"]  # herokuapp.com for Heroku
 

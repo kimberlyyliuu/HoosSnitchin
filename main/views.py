@@ -63,7 +63,9 @@ def admin_view(request, post_type="new"):
             curr_report.is_in_review = False
             curr_report.is_resolved = True
             curr_report.save()
-            # do not clear the form (so the user can see the current notes)
+            # [do not clear the form (so the user can see the current notes)]
+            # re-render the page to reflect the changes
+            return redirect("main:admin_view", post_type=post_type)
 
         if event_form.is_valid():
             # messages is to display a message to the user
@@ -90,16 +92,14 @@ def admin_view(request, post_type="new"):
 
 # [TODO: Merge with admin_view, but still works standalone]
 @csrf_exempt
-def update_report(request):
+def bring_report_to_review(request):
     report_id = request.POST.get("report_id")
     if request.method == "POST":
         report = Report.objects.get(id=report_id)
         if not report.is_resolved:
             report.is_in_review = True
         report.save()
-        return JsonResponse({"status": "success"})
-    else:
-        return JsonResponse({"status": "error"})
+    return redirect("main:admin_view", post_type="new")
 
 
 # vvvvvvvvvvvv Report / Document Uploading vvvvvvvvvvvv

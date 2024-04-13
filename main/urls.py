@@ -6,7 +6,11 @@ app_name = "main"
 urlpatterns = [
     path("", views.IndexView.as_view(), name="index"),
     path("admin_view/<str:post_type>/", views.admin_view, name="admin_view"),
-    path("update_report/", views.update_report, name="update_report"),
+    path(
+        "bring_report_to_review/",
+        views.bring_report_to_review,
+        name="bring_report_to_review",
+    ),
     path("report/event<int:event_id>/", views.report_upload_view, name="report_upload"),
     path(
         "report/<int:report_id>/upload/",

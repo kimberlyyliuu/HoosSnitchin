@@ -37,30 +37,30 @@
 
       {%if report.is_in_review%}
         <button class="report-in-review" onclick="reports_show({{ report.id }})">
-          View report for <strong>{{ report.event }}</strong>: "{{ report.description }}"
+          View report for {{ report.event }} "{{ report.description|truncatechars:18}}"        
         </button>
       {%elif report.is_resolved%}
       <button class="report-resolved" onclick="reports_show({{ report.id }})">
-        Resolved report for <strong>{{ report.event }}</strong>: "{{ report.description }}"
+        Resolved report for {{ report.event }} "{{ report.description|truncatechars:18}}"      
       </button>
       {%else%}
         <button class="report-never-viewed" onclick="reports_show({{ report.id }})">
-          View report for <strong>{{ report.event }}</strong>: "{{ report.description }}"
+          View report for {{ report.event }} "{{ report.description|truncatechars:18}}"
         </button>
       {%endif%}
       
 
       <div class="report-card" id="{{ report.id }}">
         {% if report.is_in_review %}
-        <p class="report-text">Status: In Review</p>
+        <p class="status-tag">In Review</p>
         {% elif report.is_resolved %}
-        <p class="report-text">Status: Resolved</p>
+        <p class="status-tag">Resolved</p>
         {% else %}
-        <p class="report-text">Status: Not Reviewed</p>
+        <p class="status-tag">Not Reviewed</p>
         {% endif %}
-        <p class="report-text">When: {{ report.date_time }}</p>
-        <p class="report-text">Where: {{ report.event }}</p>
-        <p class="report-text">What: {{ report.description }}</p>
+        <p class="report-event-title">{{ report.event }}</p>
+        <p class="report-text"><bold>Report:</bold> {{ report.description }}</p>
+        <p class="report-date-text">Report filed on {{ report.date_time }}</p>
         <p class="report-section-header">Images</p>
         <div class="report-section-wrapper">
           {% for img in report.images %}

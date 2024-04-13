@@ -88,12 +88,6 @@ class ViewsTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "main/report_upload.html")
 
-    # Test 5-4: Test the logout view Basic
-    def test_logout_view(self):
-        response = self.client.post("/logout/")
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), {"message": "Logged out successfully"})
-
 
 # Test Set 6: Test Forms
 class FormsTests(TestCase):

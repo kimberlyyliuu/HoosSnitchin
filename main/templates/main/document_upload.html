@@ -20,13 +20,12 @@
         files.
       </blockquote>
       <form
-        action="{% url 'main:document_upload' %}"
+        action="{% url 'main:document_upload' report_id=report_id %}"
         method="POST"
         enctype="multipart/form-data"
       >
         {% csrf_token %}
         <input type="file" name="files" multiple />
-        <input type="hidden" name="report_id" value="{{ report_id }}" />
         <button class="submit-button" type="submit">Upload</button>
       </form>
       <a href="{% url 'main:index' %}">Skip</a>

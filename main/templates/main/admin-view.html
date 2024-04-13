@@ -37,12 +37,16 @@
 
       {%if report.is_in_review%}
         <button class="report-in-review" onclick="reports_show({{ report.id }})">
-          See report for <strong>{{ report.event }}</strong>: "{{ report.description }}"
+          View report for <strong>{{ report.event }}</strong>: "{{ report.description }}"
         </button>
       {%elif report.is_resolved%}
       <button class="report-resolved" onclick="reports_show({{ report.id }})">
         Resolved report for <strong>{{ report.event }}</strong>: "{{ report.description }}"
       </button>
+      {%else%}
+        <button class="report-never-viewed" onclick="reports_show({{ report.id }})">
+          View report for <strong>{{ report.event }}</strong>: "{{ report.description }}"
+        </button>
       {%endif%}
       
 

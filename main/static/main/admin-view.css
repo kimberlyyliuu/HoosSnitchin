@@ -14,6 +14,23 @@
   padding: 0.5rem 0;
 }
 
+.report-never-viewed{
+  border: none;
+  background-color: var(--red);
+  border-radius: 5px;
+  padding: 0.35rem 0.75rem;
+  font-weight: bold;
+  color: var(--cream);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.report-never-viewed:hover {
+  background-color: var(--charcoal);
+  color: var(--cream);
+}
+
 .report-resolved {
   border: none;
   background-color: var(--mint);

@@ -1,3 +1,7 @@
+html{
+  height: 100%;
+}
+
 footer {
   display: flex;
   flex-direction: column;
@@ -5,6 +9,7 @@ footer {
   background-color: var(--charcoal);
   color: var(--cream);
   padding: 2rem;
+  margin-top: auto;
 }
 
 footer a {

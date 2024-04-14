@@ -30,6 +30,11 @@ header {
   transform: translateX(-50%);
   top: 0.5rem;
   font-weight: bold;
+  flex-grow: 1; /* Allows title to grow */
+  padding: 0 1rem; /* Add padding to prevent text from touching the buttons */
+  overflow: hidden; /* Prevents overflow */
+  white-space: nowrap; /* Prevents text from wrapping */
+
 }
 
 .title strong {
@@ -45,6 +50,26 @@ header {
   -webkit-background-clip: text;
   color: transparent; /* Hides the text color, showing the gradient */
   animation: gradient-animation 8s linear infinite; /* Adjust time as needed */
+}
+
+/* Responsive adjustments using a media query */
+@media (max-width: 670px) {
+    header {
+    padding-left: 0.5rem; /* Reduced padding on the left */
+    padding-right: 0.5rem; /* Reduced padding on the right if needed */
+  }
+
+  .title {
+    font-size: 29px  ; /* Reduce font size on smaller screens */
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+
+  .nav-button {
+    padding: 0.35rem 0.5rem; /* Reduce padding on smaller screens */
+    font-size: smaller;
+  }
+
 }
 
 .nav-button {

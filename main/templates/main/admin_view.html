@@ -54,6 +54,12 @@
                   </div>
                 </div>
                 <p>Report Description: {{ report.description }}</p>
+                <!--for deleting report-->
+                <form action="{% url 'main:delete_report_admin' report.id %}" method="post">
+                  {% csrf_token %}
+                  <button type="submit" class="delete-report_admin">Delete Report</button>
+                </form>
+                <!--for deleting report-->
                 <div class="documents-view">
                   {% for img in report.images %}
                     <div class="report-item" onclick="window.open('{{ img }}', '_blank');" style="background-image: url('{{ img }}');">

@@ -147,3 +147,15 @@ def delete_report(request, report_id):
         reports = Report.objects.filter(user=request.user)
         context = {"reports": reports}
         return render(request, "main/my_reports.html", context)
+
+
+@login_required(login_url="/accounts/login/")
+def delete_report_admin(request, report_id):
+    if request.method == "POST":
+        report = Report.objects.get(id=report_id)
+        report.delete()
+
+        reports = Report.objects.filter(user=request.user)
+        context = {"reports": reports}
+        
+        return redirect("main:admin_view", post_type="new")

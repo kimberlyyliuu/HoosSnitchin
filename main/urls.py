@@ -19,4 +19,9 @@ urlpatterns = [
     ),
     path("my_reports/", views.my_reports, name="my_reports"),
     path("delete_report/<int:report_id>/", views.delete_report, name="delete_report"),
+    path(
+        "delete_report_admin/<int:report_id>/",
+        views.delete_report_admin,
+        name="delete_report_admin",
+    ),
 ]

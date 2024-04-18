@@ -94,6 +94,7 @@ textarea {
   border-left: 5px solid var(--orange);
   border-radius: 5px;
   background-color: var(--cream);
+  position: relative;
 }
 
 .report-horizontal-bar {
@@ -146,3 +147,23 @@ textarea {
 .report-item:hover .overlay {
   opacity: 1;
 }
+
+
+.form-container {
+    text-align: right;  /* Aligns the form content to the right */
+    margin: 20px;       /* Adds some space around the form */
+}
+
+.delete-report_admin {
+    position: absolute; /* Absolute positioning for the button */
+    bottom: 10px; /* 10px from the bottom of the parent container */
+    right: 10px; /* 10px from the right of the parent container */
+    border: none; /* No border */
+    background-color: #BB270FFF; /* Background color */
+    border-radius: 5px; /* Rounded corners */
+    padding: 0.35rem 0.75rem; /* Padding inside the button */
+    color: white; /* Text color */
+    cursor: pointer; /* Cursor on hover */
+    transition: all 0.1s ease; /* Smooth transition for hover effects */
+}
+

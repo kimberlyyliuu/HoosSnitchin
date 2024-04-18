@@ -154,16 +154,44 @@ textarea {
     margin: 20px;       /* Adds some space around the form */
 }
 
+.review-delete-container{
+    position: relative;
+    padding: 15px; /* Ensure there's padding so buttons don't overlap content */
+    margin-bottom: 2px;
+}
+
+/* Style for both buttons, extracting common properties */
+.delete-report_admin, .bring-to-review-button {
+    position: absolute; /* Positioning relative to the report-container */
+    bottom: 5px; /* 5px from the bottom to keep uniform */
+    border-radius: 5px;
+    border: none;
+    padding: 0.35rem 0.75rem;
+    color: white; /* White text for both buttons */
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+/* Individual button background colors and unique positioning */
 .delete-report_admin {
-    position: absolute; /* Absolute positioning for the button */
-    bottom: 10px; /* 10px from the bottom of the parent container */
-    right: 10px; /* 10px from the right of the parent container */
-    border: none; /* No border */
-    background-color: #BB270FFF; /* Background color */
-    border-radius: 5px; /* Rounded corners */
-    padding: 0.35rem 0.75rem; /* Padding inside the button */
-    color: white; /* Text color */
-    cursor: pointer; /* Cursor on hover */
-    transition: all 0.1s ease; /* Smooth transition for hover effects */
+    right: 10px; /* Align to the right */
+    background-color: #BB270FFF; /* Purple background */
+}
+
+.bring-to-review-button {
+    left: 10px; /* Align to the left */
+    background-color: var(--orange); /* Using CSS variable for color */
+    color: var(--charcoal); /* Using CSS variable for text color */
+}
+
+/* Hover effects for both buttons */
+.delete-report_admin:hover {
+    background-color: #FF1212FF; /* Red on hover */
+}
+
+.bring-to-review-button:hover {
+    background-color: #FFB121FF; /* Lighter orange on hover */
+    color: white;
 }
 

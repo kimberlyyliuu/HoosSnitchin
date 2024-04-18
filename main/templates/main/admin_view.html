@@ -54,14 +54,6 @@
                   </div>
                 </div>
                 <p>Report Description: {{ report.description }}</p>
-                <!--for deleting report-->
-                <div style="text-align: right;"> 
-                    <form action="{% url 'main:delete_report_admin' report.id %}" method="post">
-                      {% csrf_token %}
-                      <button type="submit" class="delete-report_admin">Delete Report</button>
-                    </form>
-                </div>
-                <!--for deleting report-->
                 <div class="documents-view">
                   {% if report.images or report.txts or report.pdfs %}
                       {% for img in report.images %}
@@ -86,11 +78,21 @@
                   {% endif %}
                 </div>
                 {% if report.status == "new" %}
-                  <form method="POST" action="{% url 'main:bring_report_to_review' %}">
-                      {% csrf_token %}
-                      <input type="hidden" name="report_id" value="{{ report.id }}">
-                      <button type="submit">Bring To Review</button>
-                  </form>
+                    <div class="review-delete-container">
+                      <form method="POST" action="{% url 'main:bring_report_to_review' %}">
+                          {% csrf_token %}
+                          <input type="hidden" name="report_id" value="{{ report.id }}">
+                          <button type="submit" class="bring-to-review-button">Bring To Review</button>
+                      </form>
+                    <!--for deleting report-->
+                    <div style="text-align: right;"> 
+                        <form action="{% url 'main:delete_report_admin' report.id %}" method="post">
+                          {% csrf_token %}
+                          <button type="submit" class="delete-report_admin">Delete Report</button>
+                        </form>
+                    </div>
+                    </div>
+                <!--for deleting report-->
                 {% elif report.status == "in_review" %}
                   <form method="POST">
                     {% csrf_token %} {{ resolve_form.as_p }}

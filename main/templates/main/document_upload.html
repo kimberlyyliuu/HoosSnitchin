@@ -11,7 +11,7 @@
     <h2>Upload Documents</h2>
     <div class="center-column">
       <p class="event-intro">
-        <strong>Thank you!</strong> Your report has been submitted. 
+        <strong>Thank you!</strong> Your report has been submitted.
         <p>
           Optional: Upload any supporting documents for your report. Please fill
         out the form below to submit your report to event organizers.
@@ -29,6 +29,11 @@
         {% csrf_token %}
         <input type="file" name="files" multiple />
         <button class="submit-button" type="submit">Upload</button>
+        {% if error_message %}
+        <div style="color: red; margin-top: 10px;">
+            {{ error_message }}
+        </div>
+        {% endif %}
       </form>
       <a href="{% url 'main:index' %}">Skip</a>
     </div>

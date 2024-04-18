@@ -124,7 +124,18 @@ def report_upload_view(request, event_id):
 def document_upload_view(request, report_id):
     if request.method == "POST":
         files = request.FILES.getlist("files")
+        allowed_extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'txt', 'pdf']
+        error = False # Flag to detect any invalid files
         for file in files:
+            if not any(file.name.endswith(f'.{ext}') for ext in allowed_extensions):
+                error = True
+
+            if error:
+                return render(request, 'main/document_upload.html', {
+                    'error_message': 'Invalid Document. Please upload only files with the following extensions: .jpg, .jpeg, .png, .webp, .gif, .txt, .pdf.',
+                    'report_id': report_id
+                })
+
             doc = Document.objects.create(document=file, title=file.name)
             report = Report.objects.get(id=report_id)
             report.document.add(doc)

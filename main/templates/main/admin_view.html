@@ -61,23 +61,27 @@
                 </form>
                 <!--for deleting report-->
                 <div class="documents-view">
-                  {% for img in report.images %}
-                    <div class="report-item" onclick="window.open('{{ img }}', '_blank');" style="background-image: url('{{ img }}');">
-                      <div class="overlay">Open Image</div>
-                    </div>
-                  {% endfor %}
-                  {% for txt in report.txts %}
-                    <div class="report-item" onclick="window.open('{{ txt }}', '_blank');">
-                      <iframe src="{{ txt }}"></iframe>
-                      <div class="overlay">Open Text</div>
-                    </div>
-                  {% endfor %}
-                  {% for pdf in report.pdfs %}
-                    <div class="report-item" onclick="window.open('{{ pdf }}', '_blank');">
-                      <iframe src="{{ pdf }}"></iframe>
-                      <div class="overlay">Open PDF</div>
-                    </div>
-                  {% endfor %}
+                  {% if report.images or report.txts or report.pdfs %}
+                      {% for img in report.images %}
+                        <div class="report-item" onclick="window.open('{{ img }}', '_blank');" style="background-image: url('{{ img }}');">
+                          <div class="overlay">Open Image</div>
+                        </div>
+                      {% endfor %}
+                      {% for txt in report.txts %}
+                        <div class="report-item" onclick="window.open('{{ txt }}', '_blank');">
+                          <iframe src="{{ txt }}"></iframe>
+                          <div class="overlay">Open Text</div>
+                        </div>
+                      {% endfor %}
+                      {% for pdf in report.pdfs %}
+                        <div class="report-item" onclick="window.open('{{ pdf }}', '_blank');">
+                          <iframe src="{{ pdf }}"></iframe>
+                          <div class="overlay">Open PDF</div>
+                        </div>
+                      {% endfor %}
+                  {% else %}    
+                    <p>No Documents Available to Review</p>
+                  {% endif %}
                 </div>
                 {% if report.status == "new" %}
                   <form method="POST" action="{% url 'main:bring_report_to_review' %}">

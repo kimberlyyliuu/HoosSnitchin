@@ -51,7 +51,7 @@
         <!--for deleting report-->
         <form action="{% url 'main:delete_report' report.id %}" method="post">
           {% csrf_token %}
-          <button type="submit" class="delete-report">Delete Report</button>
+          <button type="submit" class="delete-report" onclick="return confirm('Are you sure you want to delete?');">Delete Report</button>
         </form>
       </li>
       {% endfor %}

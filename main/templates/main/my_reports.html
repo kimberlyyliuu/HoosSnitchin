@@ -9,7 +9,7 @@
     <title>User Reports</title>
   </head>
   <body>
-    <h1>Reports for {{ request.user.username }}</h1>
+    <h1>Reports for {{ request.user.username|capfirst }}</h1>
     {% if reports %}
     <ul>
       {% for report in reports %}

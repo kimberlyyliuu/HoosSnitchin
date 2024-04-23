@@ -176,7 +176,7 @@ textarea {
 /* Individual button background colors and unique positioning */
 .delete-report_admin {
     right: 10px; /* Align to the right */
-    background-color: #BB270FFF; /* Purple background */
+    background-color: #BB270FFF;
 }
 
 .bring-to-review-button {

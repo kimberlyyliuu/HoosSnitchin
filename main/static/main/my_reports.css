@@ -64,11 +64,10 @@ li {
 
 .delete-report{
     border: 10px;
-    background-color: var(--mint);
     border-radius: 5px;
     padding: 0.35rem 0.75rem;
     font-weight: bold;
-    color: var(--charcoal);
+    color: white;
     text-decoration: none;
     cursor: pointer;
     transition: all 0.1s ease;
@@ -77,9 +76,11 @@ li {
     margin-left: auto; /* aligns button to the right */
     margin-right: auto; /* aligns button to the right */
     width: fit-content;
+    background-color: #d9534f;
+
 }
 
 .delete-report:hover {
-  background-color: var(--red);
+  background-color: #FF1212FF;
   color: white;
 }

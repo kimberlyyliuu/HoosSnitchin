@@ -9,6 +9,7 @@ h2 {
   max-width: 800px;
   margin: 0 auto;
   padding: 0 0 2rem 0;
+  position: relative;
 }
 
 .event-intro {
@@ -56,4 +57,23 @@ button:hover {
 .success-message {
   color: green; /* Green */
   margin-top: 10px;
+}
+
+.skip-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  overflow: hidden;
+  background-color: var(--orange);
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem 3rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+
+}
+
+.skip-button:hover {
+  background-color: #F1C887FF;
 }

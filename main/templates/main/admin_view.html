@@ -24,16 +24,33 @@
       <div class="reports-header">
         <h3 class="section-title">Reports <em>({{post_type}})</em></h3>
         <div class="reports-button-wrapper">
-          <button
-            class="reports-button"
-            onclick="window.location.href='/admin_view/new';"
-          >
+          <button id="newButton" class="reports-button" onclick="window.location.href='/admin_view/new';">
             New
-          </button>
-          <button class="reports-button" onclick="window.location.href='/admin_view/in_review';">
+        </button>
+        <button id="inReviewButton" class="reports-button" onclick="window.location.href='/admin_view/in_review';">
             In Review
-          <button class="reports-button" onclick="window.location.href='/admin_view/resolved';">
+        </button>
+        <button id="resolvedButton" class="reports-button" onclick="window.location.href='/admin_view/resolved';">
             Resolved
+        </button>
+        
+        <style>
+        .active-button {
+            background-color: #FFC435;
+        }
+        </style>
+        
+        <script>
+        window.onload = function() {
+            if (window.location.href.endsWith('/admin_view/new/')) {
+                document.getElementById('newButton').classList.add('active-button');
+            } else if (window.location.href.endsWith('/admin_view/in_review/')) {
+                document.getElementById('inReviewButton').classList.add('active-button');
+            } else if (window.location.href.endsWith('/admin_view/resolved/')) {
+                document.getElementById('resolvedButton').classList.add('active-button');
+            }
+        }
+        </script>
         </div>
       </div>
       <div class="reports-wrapper">

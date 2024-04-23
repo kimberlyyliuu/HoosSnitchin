@@ -142,8 +142,14 @@ def document_upload_view(request, report_id):
             doc = Document.objects.create(document=file, title=file.name)
             report.document.add(doc)
 
+        message = "Documents has been successfully uploaded. You can upload more documents or return to the home page."
+        if len(files) == 1:
+            message = "Document has been successfully uploaded. You can upload more documents or return to the home page."
+        elif len(files) < 1:
+            message = "No document was uploaded. Please try again."
+
         return render(request, "main/document_upload.html", {
-            'success_message': 'Document has been successfully uploaded. You can upload more documents or return to the home page.',
+            'success_message': message,
             "report_id": report_id
         })
     return render(request, "main/document_upload.html", {"report_id": report_id})

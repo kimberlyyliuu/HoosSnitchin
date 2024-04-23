@@ -93,6 +93,7 @@
                   {% else %}    
                     <p>No Documents Available to Review</p>
                   {% endif %}
+                  
                 </div>
                 {% if report.status == "new" %}
                     <div class="review-delete-container">
@@ -114,8 +115,27 @@
                   <form method="POST">
                     {% csrf_token %} {{ resolve_form.as_p }}
                     <input type="hidden" name="form_id" value="{{ report.id }}" />
-                    <button type="submit" class="resolve-button">Resolve</button>
+                    <button type="submit" class="reports-button" >Resolve</button>
                   </form>
+                  <!--for deleting report-->
+                  <div style="text-align: right;"> 
+                    <form action="{% url 'main:delete_report_admin' report.id %}" method="post">
+                      {% csrf_token %}
+                      <button type="submit" class="delete-report_admin" onclick="return confirm('Are you sure you want to delete this report?');">Delete Report</button>
+                    </form>
+                </div>
+                </div>
+            <!--for deleting report-->
+                {% else %}
+                  <!--for deleting report-->
+                  <div style="text-align: right;"> 
+                    <form action="{% url 'main:delete_report_admin' report.id %}" method="post">
+                      {% csrf_token %}
+                      <button type="submit" class="delete-report_admin" onclick="return confirm('Are you sure you want to delete this report?');">Delete Report</button>
+                    </form>
+                </div>
+                </div>
+            <!--for deleting report-->
                 {% endif %}
               </div>
           {% endif %}

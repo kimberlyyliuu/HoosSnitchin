@@ -29,11 +29,17 @@
         {% csrf_token %}
         <input type="file" name="files" multiple />
         <button class="submit-button" type="submit">Upload</button>
-        {% if error_message %}
-        <div style="color: red; margin-top: 10px;">
+          {% if error_message %}
+          <div style="color: red; margin-top: 10px;">
             {{ error_message }}
-        </div>
-        {% endif %}
+          </div>
+          {% endif %}
+
+          {% if success_message %}
+          <div style="color: green; margin-top: 10px;">
+            {{ success_message }}
+          </div>
+          {% endif %}
       </form>
       <a href="{% url 'main:index' %}">Skip</a>
     </div>

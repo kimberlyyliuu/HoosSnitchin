@@ -135,11 +135,16 @@ def document_upload_view(request, report_id):
                     'error_message': 'Invalid Document. Please upload only files with the following extensions: .jpg, .jpeg, .png, .webp, .gif, .txt, .pdf.',
                     'report_id': report_id
                 })
-
+        # If no errors, process each file
+        report = Report.objects.get(id=report_id)  # Retrieve the report once
+        for file in files:
             doc = Document.objects.create(document=file, title=file.name)
-            report = Report.objects.get(id=report_id)
             report.document.add(doc)
-        return redirect("main:index")
+
+        return render(request, "main/document_upload.html", {
+            'success_message': 'Document has been successfully uploaded. You can upload more documents or return to the main page.',
+            "report_id": report_id
+        })
     return render(request, "main/document_upload.html", {"report_id": report_id})
 
 

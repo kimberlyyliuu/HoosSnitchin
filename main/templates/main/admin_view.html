@@ -12,7 +12,7 @@
       <h3 class="section-title">Create Event</h3>
       <form method="POST">
         {% csrf_token %} {{ event_form.as_p }}
-        <button type="submit" name="upload_button">Upload</button>
+        <button type="submit" name="upload_button" class="reports-button">Create Event</button>
         {% if messages %} {% for message in messages %}
         <div {% if message.tags %} class="message-display" {% endif %}>
           {{ message }}

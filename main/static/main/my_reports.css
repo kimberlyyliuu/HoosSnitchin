@@ -86,3 +86,14 @@ li {
   background-color: #FF1212FF;
   color: white;
 }
+
+.no-report-msg{
+    font-style: italic;
+    position: absolute;      /* Use absolute positioning */
+    top: 30%;                /* Position the top edge of the element at the middle of the container */
+    left: 50%;               /* Position the left edge of the element at the middle of the container */
+    transform: translate(-50%, -50%); /* Shift the element to the left and up by half its own width and height */
+    width: 100%;             /* Optional: Set a specific width if needed */
+    text-align: center;      /* Center the text horizontally */
+    color: #707070;             /* Set the text color */
+}

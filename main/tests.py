@@ -111,7 +111,19 @@ class FormsTests(TestCase):
 
     # Test 6-2: Test the document form
     def test_document_form(self):
+        user = CustomUser.objects.create_user(
+            email="test@example.com",
+            username="testuser",
+            password="testpassword",
+            first_name="Kevin",
+            last_name="Cha",
+        )
         event = Event.objects.create(title="Test Event", description="Test Description")
+        report = Report.objects.create(
+            description="Test Report Description",
+            user=user,
+            event=event,
+        )
         response = self.client.post(
             "/report/1/upload/", {"files": "Test Document", "report_id": 1}
         )

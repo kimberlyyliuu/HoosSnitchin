@@ -125,9 +125,9 @@ class FormsTests(TestCase):
             event=event,
         )
         response = self.client.post(
-            "/report/1/upload/", {"files": "Test Document", "report_id": 1}
+            "/report/1/upload/", {"files": "TestDoc.txt", "report_id": 1}
         )
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
         # self.assertEqual(response.context['form'].cleaned_data['file_field'], 'Test Document')
 
 

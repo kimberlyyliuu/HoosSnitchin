@@ -18,8 +18,10 @@
           monitored and should not be used to report real events. Please do not submit
           any real information.
       </p>
-    </div>
-    <h2 class="events-title">Events</h2>
+     </div>
+    <h2 id="temp" onClick="document.getElementById('temp').scrollIntoView({ behavior: 'smooth' });" style="background-color: black; color: white; text-align: center; font-weight: 300; font-size: 1rem;">↓ Jump to Browse Events ↓ </h2>
+
+    <h2 class="events-title" id="ev" >Events</h2>
     <div class="events-wrapper">
       {% for event in events %}
         <div class="event">

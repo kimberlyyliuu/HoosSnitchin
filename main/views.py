@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden, JsonResponse
 from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
 
@@ -162,8 +163,7 @@ def delete_report(request, report_id):
 
         reports = Report.objects.filter(user=request.user)
         context = {"reports": reports}
-        return render(request, "main/my_reports.html", context)
-
+        return redirect(reverse("main:my_reports"), context=context)
 
 @login_required(login_url="/accounts/login/")
 def delete_report_admin(request, report_id):

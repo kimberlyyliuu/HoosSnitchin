@@ -46,3 +46,14 @@ input[type="file"] {
 button:hover {
   background-color: var(--orange);
 }
+
+.error-message {
+  color: var(--red);
+  margin-top: 10px;
+}
+
+
+.success-message {
+  color: green; /* Green */
+  margin-top: 10px;
+}

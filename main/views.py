@@ -142,7 +142,7 @@ def document_upload_view(request, report_id):
             report.document.add(doc)
 
         return render(request, "main/document_upload.html", {
-            'success_message': 'Document has been successfully uploaded. You can upload more documents or return to the main page.',
+            'success_message': 'Document has been successfully uploaded. You can upload more documents or return to the home page.',
             "report_id": report_id
         })
     return render(request, "main/document_upload.html", {"report_id": report_id})

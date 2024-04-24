@@ -29,24 +29,40 @@
 }
 
 .top-view h2,
-.top-view p {
-  /* Initial state */
-  opacity: 0;
-  animation: fadeInUp 1s ease-out forwards;
+.top-view p,
+.top-view button {
+    /* Initial state */
+    opacity: 0;
 }
 
 .top-view h2 {
-  animation-delay: 0.5s;
-  color: var(--cream);
-  font-size: 3rem;
-  text-align: center;
+    animation: fadeInUp 1s ease-out 0.5s forwards;
+    color: var(--cream);
+    font-size: 3rem;
+    text-align: center;
 }
 
 .top-view p {
-  animation-delay: 0.75s;
-  color: var(--cream);
-  font-size: 1.5rem;
-  text-align: center;
+    animation: fadeInUp 1s ease-out 0.75s forwards;
+    color: var(--cream);
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+@keyframes expandIn {
+  from {
+      transform: scale(0);
+      opacity: 0;
+  }
+  to {
+      transform: scale(1);
+      opacity: 1;
+  }
+}
+
+.top-view button {
+    animation: fadeInUp 1s ease-out 1.10s forwards;
+    font-size: 1.5rem;
 }
 
 .events-title {

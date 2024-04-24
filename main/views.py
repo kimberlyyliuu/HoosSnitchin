@@ -156,7 +156,16 @@ def document_upload_view(request, report_id):
         if len(files) == 1:
             message = "Document has been successfully uploaded. You can upload more documents or return to the home page."
         elif len(files) < 1:
-            message = "No document was uploaded. Please try again."
+            error = True
+            if error:
+                return render(
+                    request,
+                    "main/document_upload.html",
+                    {
+                        "error_message": "No document was uploaded. Please try again.",
+                        "report_id": report_id,
+                    },
+                )
 
         return render(
             request,

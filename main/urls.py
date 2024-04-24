@@ -24,4 +24,6 @@ urlpatterns = [
         views.delete_report_admin,
         name="delete_report_admin",
     ),
+    # override default logout view (logs out and redirects to index)
+    path("accounts/logout/", views.logout_view, name="custom-logout"),
 ]

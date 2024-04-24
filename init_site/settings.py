@@ -163,6 +163,8 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+# Makes Social Login with without Intermediate Page
+SOCIALACCOUNT_LOGIN_ON_GET = True
 # ^^^ Authentication ^^^
 
 # vvv Setting New Users vvv

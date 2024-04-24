@@ -1,14 +1,20 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseForbidden, JsonResponse
+from django.http import HttpResponseForbidden
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
-
+from django.contrib.auth import logout
 from main.forms import EventForm, ReportForm, ResolveMessageForm
 from main.models import CustomUser, Document, Event, Report
 from main.s3_utils import get_s3_presigned_url
+
+
+# vvvvvvvvvvvv Logout Redirect vvvvvvvvvvvv
+def logout_view(request):
+    logout(request)
+    return redirect("main:index")
 
 
 # vvvvvvvvvvvv Index View vvvvvvvvvvvv
@@ -125,17 +131,21 @@ def report_upload_view(request, event_id):
 def document_upload_view(request, report_id):
     if request.method == "POST":
         files = request.FILES.getlist("files")
-        allowed_extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'txt', 'pdf']
-        error = False # Flag to detect any invalid files
+        allowed_extensions = ["jpg", "jpeg", "png", "webp", "gif", "txt", "pdf"]
+        error = False  # Flag to detect any invalid files
         for file in files:
-            if not any(file.name.endswith(f'.{ext}') for ext in allowed_extensions):
+            if not any(file.name.endswith(f".{ext}") for ext in allowed_extensions):
                 error = True
 
             if error:
-                return render(request, 'main/document_upload.html', {
-                    'error_message': 'Invalid Document. Please upload only files with the following extensions: .jpg, .jpeg, .png, .webp, .gif, .txt, .pdf.',
-                    'report_id': report_id
-                })
+                return render(
+                    request,
+                    "main/document_upload.html",
+                    {
+                        "error_message": "Invalid Document. Please upload only files with the following extensions: .jpg, .jpeg, .png, .webp, .gif, .txt, .pdf.",
+                        "report_id": report_id,
+                    },
+                )
         # If no errors, process each file
         report = Report.objects.get(id=report_id)  # Retrieve the report once
         for file in files:
@@ -148,10 +158,11 @@ def document_upload_view(request, report_id):
         elif len(files) < 1:
             message = "No document was uploaded. Please try again."
 
-        return render(request, "main/document_upload.html", {
-            'success_message': message,
-            "report_id": report_id
-        })
+        return render(
+            request,
+            "main/document_upload.html",
+            {"success_message": message, "report_id": report_id},
+        )
     return render(request, "main/document_upload.html", {"report_id": report_id})
 
 
@@ -171,6 +182,7 @@ def delete_report(request, report_id):
         context = {"reports": reports}
         return redirect(reverse("main:my_reports"), context=context)
 
+
 @login_required(login_url="/accounts/login/")
 def delete_report_admin(request, report_id):
     if request.method == "POST":
@@ -179,5 +191,5 @@ def delete_report_admin(request, report_id):
 
         reports = Report.objects.filter(user=request.user)
         context = {"reports": reports}
-        
+
         return redirect("main:admin_view", post_type="new")

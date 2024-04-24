@@ -162,7 +162,7 @@ def document_upload_view(request, report_id):
                     request,
                     "main/document_upload.html",
                     {
-                        "error_message": "No document was uploaded. Please try again.",
+                        "error_message": "No document was uploaded. Please try again, alternatively, press \"Skip\"",
                         "report_id": report_id,
                     },
                 )

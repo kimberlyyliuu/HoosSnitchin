@@ -14,9 +14,12 @@
         {% csrf_token %} {{ event_form.as_p }}
         <button type="submit" name="upload_button" class="reports-button">Create Event</button>
         {% if messages %} {% for message in messages %}
-        <div {% if message.tags %} class="message-display" {% endif %}>
-          {{ message }}
-        </div>
+          {% if "Event created successfully" in message|safe %}
+            <div {% if message.tags %} class="message-display" {% endif %}>
+              {{ message }}
+            </div>
+          {% endif %}
+
         {% endfor %} {% endif %}
       </form>
     </div>

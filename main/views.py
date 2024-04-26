@@ -38,6 +38,12 @@ def admin_view(request, post_type="new"):
         )
     if post_type not in ["new", "in_review", "resolved"]:
         return HttpResponseForbidden("Error: Invalid Report Type")
+    
+            #clear old messages 
+    storage = messages.get_messages(request)
+    for message in storage:
+            storage.used = True
+            
     reports = Report.objects.all().order_by("-is_in_review", "-date_time")
     for report in reports:
         report_docs = report.document.all()
@@ -75,6 +81,8 @@ def admin_view(request, post_type="new"):
             return redirect("main:admin_view", post_type=post_type)
 
         if event_form.is_valid():
+
+
             # messages is to display a message to the user
             # accessed in the template with {% for message in messages %}
             messages.success(request, "Event created successfully")

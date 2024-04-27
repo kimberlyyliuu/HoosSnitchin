@@ -12,35 +12,46 @@
     <div class="top-view">
       <h2>UVA's Premier Event Reporting System</h2>
       <p>
-          HoosSnitchin is a class project that allows students, faculty, parents, 
-          friends, and family to report incidents they have witnessed or experienced 
-          at events sanctioned by the University of Virginia. This system is not 
-          monitored and should not be used to report real events. Please do not submit
-          any real information.
+        HoosSnitchin is a class project that allows students, faculty, parents,
+        friends, and family to report incidents they have witnessed or
+        experienced at events sanctioned by the University of Virginia. This
+        system is not monitored and should not be used to report real events.
+        Please do not submit any real information.
       </p>
-     </div>
-    <h2 id="temp" onClick="document.getElementById('temp').scrollIntoView({ behavior: 'smooth' });" style="background-color: black; color: white; text-align: center; font-weight: 300; font-size: 1rem;">↓ Jump to Browse Events ↓ </h2>
+      <p
+        onClick="document.getElementById('ev').scrollIntoView({ behavior: 'smooth' });"
+        class="jump"
+      >
+        ↓ Browse Events ↓
+      </p>
+    </div>
 
-    <h2 class="events-title" id="ev" >Events</h2>
+    <h2 class="events-title" id="ev">Events</h2>
     <div class="events-wrapper">
       {% for event in events %}
-        <div class="event">
-          <div class="event-content">
-            <div class="event-name">{{ event.title }}</div>
-            <div class="event-description">
-              Description: {{ event.description }}
-            </div>
+      <div class="event">
+        <div class="event-content">
+          <div class="event-name">{{ event.title }}</div>
+          <div class="event-description">
+            Description: {{ event.description }}
           </div>
-          {% if user.is_authenticated %}
-          <button class="report-button" onclick="window.location.href='/report/event{{ event.pk }}/';">
-            File A Report
-          </button>
-          {% else %}
-          <button class="report-button" onclick="window.location.href='/report/event{{ event.pk }}/';">
-            File A Report Anonymously
-          </button>
-          {% endif %}
         </div>
+        {% if user.is_authenticated %}
+        <button
+          class="report-button"
+          onclick="window.location.href='/report/event{{ event.pk }}/';"
+        >
+          File A Report
+        </button>
+        {% else %}
+        <button
+          class="report-button"
+          onclick="window.location.href='/report/event{{ event.pk }}/';"
+        >
+          File A Report Anonymously
+        </button>
+        {% endif %}
+      </div>
       {% endfor %}
     </div>
   </body>

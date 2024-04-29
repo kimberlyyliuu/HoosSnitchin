@@ -1,13 +1,17 @@
 
 # HoosSnitchin
 
-__Group Members:__ Ryland Birchmeier, Kevin Cha, Kimberly Liu, Helena Moore, Andy Wang
+__Collaborators:__ Kimberly Liu, Helena Moore, Ryland Birchmeier, Kevin Cha, Andy Wang
 
-# To Run: 
-make sure dependencies are installed \\ 
-  -pip install -r requirements.txt\\ 
+## To Run:
+make sure dependencies are installed 
+
+   -pip install -r requirements.txt
+  
 make sure all database migrations are made 
+
   -run: python manage.py makemigrations python manage.py migrate
+  
   -if you want to check the database run: python manage.py createsuperuser - follow instructions then go to this site and login: http://localhost:8000/admin/
 
 run: python manage.py runserver

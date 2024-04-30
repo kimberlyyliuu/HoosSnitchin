@@ -3,6 +3,9 @@
 
 __Collaborators:__ Kimberly Liu, Helena Moore, Ryland Birchmeier, Kevin Cha, Andy Wang
 
+## Contributions 
+As scrum master, 
+
 ## To Run:
 make sure dependencies are installed 
 
